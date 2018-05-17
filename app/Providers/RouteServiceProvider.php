@@ -51,6 +51,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapWebRoutes()
     {
+        $modules = [
+            'User'
+        ];
+
+        foreach ($modules as $module) {
+            Route::middleware('web')
+                ->namespace("Modules\\{$module}\\Http\Controllers")
+                ->group(base_path("Modules/{$module}/Http/web.php"));
+        }
         Route::middleware('web')
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
@@ -65,6 +74,15 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
+        $modules = [
+            'User'
+        ];
+
+        foreach ($modules as $module) {
+            Route::middleware('web')
+                ->namespace("Modules\\{$module}\\Http\Controllers\Api")
+                ->group(base_path("Modules/{$module}/Http/api.php"));
+        }        
         Route::prefix('api')
              ->middleware('api')
              ->namespace($this->namespace)

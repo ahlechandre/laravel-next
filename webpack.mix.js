@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,5 +11,20 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js')
-   .sass('resources/assets/sass/app.scss', 'public/css');
+const copies = [
+  {
+    from: './node_modules/material-components-web/dist/material-components-web.js',
+    to: 'public/js',
+  },
+  {
+    from: './node_modules/material-components-web/dist/material-components-web.css',
+    to: 'public/css',
+  },
+];
+copies.map(asset => mix.copy(asset.from, asset.to));
+mix.js('resources/assets/components/app.js', 'public/js');
+mix.sass('resources/assets/components/app.scss', 'public/css', {
+  includePaths: [
+    'node_modules',
+  ],
+});
