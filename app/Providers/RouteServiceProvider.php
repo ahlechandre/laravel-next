@@ -79,10 +79,11 @@ class RouteServiceProvider extends ServiceProvider
         ];
 
         foreach ($modules as $module) {
-            Route::middleware('web')
+            Route::prefix('api')
+                ->middleware('api')
                 ->namespace("Modules\\{$module}\\Http\Controllers\Api")
                 ->group(base_path("Modules/{$module}/Http/api.php"));
-        }        
+        }
         Route::prefix('api')
              ->middleware('api')
              ->namespace($this->namespace)

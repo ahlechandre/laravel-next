@@ -1,7 +1,7 @@
 import Filterable from './Filterable'
 
 const FilterableContainer = () => ({
-  selector: '.ima-filterable',
+  selector: '.filterable',
   init: element => {
     const filterable = new Filterable({
       element

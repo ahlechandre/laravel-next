@@ -3,7 +3,7 @@ import { createStore } from 'redux'
 import chipableReducer from './reducers'
 
 const ChipableContainer = () => ({
-  selector: '.ima-chipable',
+  selector: '.chipable',
   init: element => {
     const store = createStore(chipableReducer)
     const component = new Chipable({

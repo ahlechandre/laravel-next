@@ -3,13 +3,13 @@ import { syncChips, activateChip, deactivateChip } from './actions'
 class Chipable {
   datasets = {
     CHIP_LABEL: 'imaChipableLabel',
-    CHIP_FOR: 'ima-chipable-for',
+    CHIP_FOR: 'chipable-for',
   }
 
   classes = {
-    CHIPABLE_ITEM: 'ima-chipable__item',
-    CHIPS_CONTAINER: 'ima-chipable__chips',
-    CHIP: 'ima-chip',
+    CHIPABLE_ITEM: 'chipable__item',
+    CHIPS_CONTAINER: 'chipable__chips',
+    CHIP: 'chip',
   }
 
   constructor(props) {

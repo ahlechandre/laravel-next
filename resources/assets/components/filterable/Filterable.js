@@ -1,14 +1,14 @@
 class Filterable {
   datasets = {
-    FILTER_MAX: 'imaFilterMax',
-    FILTER_TERM: 'imaFilterTerm',
+    FILTER_MAX: 'filterMax',
+    FILTER_TERM: 'filterTerm',
   }
 
   classes = {
-    INPUT: 'ima-text-field__input',
-    TEXTFIELD: 'ima-filterable__filter',
-    LIST: 'ima-filterable__list',
-    LIST_ITEM: 'ima-filterable__item',
+    INPUT: 'text-field__input',
+    TEXTFIELD: 'filterable__filter',
+    LIST: 'filterable__list',
+    LIST_ITEM: 'filterable__item',
     LIST_ITEM_HIDDEN: 'is-hidden',
   }
 

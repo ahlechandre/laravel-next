@@ -6,9 +6,9 @@ class Searchable {
   }
 
   classes = {
-    'FORM': 'ima-searchable__form',
-    'TEXTFIELD': 'ima-searchable__search',
-    'INPUT': 'ima-text-field__input',
+    'FORM': 'searchable__form',
+    'TEXTFIELD': 'searchable__search',
+    'INPUT': 'text-field__input',
   }
 
   constructor(props) {

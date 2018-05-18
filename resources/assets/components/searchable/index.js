@@ -4,7 +4,7 @@ import ReduxThunk from 'redux-thunk'
 import searchableReducer from './reducers'
 
 const SearchableContainer = () => ({
-  selector: '.ima-searchable',
+  selector: '.searchable',
   init: element => {
     const store = createStore(
       searchableReducer,

@@ -5,6 +5,7 @@ import TextFieldHelperTextContainer from './textfield-helper-text'
 import ButtonContainer from './button'
 import FilterableContainer from './filterable'
 import ChipableContainer from './chipable'
+import AsyncSelectContainer from './async-select'
 
 const components = [
   DrawerContainer,  
@@ -13,6 +14,7 @@ const components = [
   ButtonContainer,
   FilterableContainer,
   ChipableContainer,
+  AsyncSelectContainer,  
 ]
 
 /**
@@ -22,9 +24,7 @@ const components = [
  */
 const render = component => {
   let i = 0
-  const elements = document.querySelectorAll(
-    component().selector
-  )
+  const elements = document.querySelectorAll(component().selector)
 
   for (i; i < elements.length; i++) {
     component().init(elements[i])

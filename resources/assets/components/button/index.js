@@ -1,7 +1,7 @@
 import Button from './Button'
 
 const ButtonContainer = () => ({
-  selector: '.ima-button',
+  selector: '.button',
   init: element => Button(element),
 })
 

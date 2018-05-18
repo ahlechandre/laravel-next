@@ -1,13 +1,13 @@
 // Helper aside
-.ima-helper-text {
+.helper-text {
   font-size: .75rem;
 }
 
-.ima-helper-text--validation-msg {
+.helper-text--validation-msg {
   color: #d50000;
 }
 
 // Helper on text field
-.mdc-text-field:not(.mdc-text-field--disabled) + .ima-text-field-helper-text--validation-msg {
+.mdc-text-field:not(.mdc-text-field--disabled) + .text-field-helper-text--validation-msg {
   color: #d50000;
 }

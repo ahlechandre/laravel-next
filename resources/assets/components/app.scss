@@ -26,6 +26,7 @@
 @import '~@material/switch/mdc-switch';
 @import '~@material/slider/mdc-slider';
 @import '~@material/menu/mdc-menu';
+@import '~@material/chips/mdc-chips';
 /*
  * ----------------------------------------------------
  * Custom
@@ -38,3 +39,4 @@
 @import 'drawer/drawer';
 @import 'textfield/textfield';
 @import 'login/login';
+@import 'async-select/async-select';

@@ -4,7 +4,7 @@ import { MDCPersistentDrawer } from '@material/drawer'
  * Armazena todos os atributos datasets do componente. 
  */
 const datasets = {
-  'DRAWER_TOGGLE': 'ima-drawer-toggle'
+  'DRAWER_TOGGLE': 'drawer-toggle'
 }
 
 /**
