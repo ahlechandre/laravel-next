@@ -1,6 +1,5 @@
-<div class="text-field mdc-text-field{{ setModifiers($modifiers ?? null) }}">
-  <input {{ setAttributes($attrs ?? null) }} class="mdc-text-field__input">
-  <label class="mdc-floating-label" for="{{ $attrs['id'] ?? null }}">{{ $label }}</label>
+<div class="mdc-text-field mdc-text-field--fullwidth{{ setModifiers($modifiers ?? null) }}">
+  <input {{ setAttributes($attrs ?? null) }} class="mdc-text-field__input" placeholder="{{ $label }}">
   <div class="mdc-line-ripple"></div>
 </div>
 

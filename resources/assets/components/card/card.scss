@@ -1,0 +1,20 @@
+.card {
+  background-color: white;
+}
+
+.card__primary {
+  padding: 1rem;
+
+  & .card__title {
+    margin: 0;
+  }
+
+  & .card__subtitle {
+    margin: 0;
+    color: rgba(0,0,0,.54);
+  }
+}
+
+.card__body {
+  padding: 0 1rem 8px;
+}

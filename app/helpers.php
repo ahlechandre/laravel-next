@@ -67,10 +67,10 @@ function setMaterialCells($cells) {
     if (!$cells) return '';
   
     $prefix = 'mdc-layout-grid__cell--span-';
-    $classes = isset($cells['span']) ?
-      " {$prefix}{$cells['span']}" : '';
+    $classes = isset($cells['default']) ?
+      " {$prefix}{$cells['default']}" : '';
     
-    unset($cells['span']);
+    unset($cells['default']);
   
     foreach ($cells as $device => $cols) {
       $classes .= " {$prefix}{$cols}-{$device}";
