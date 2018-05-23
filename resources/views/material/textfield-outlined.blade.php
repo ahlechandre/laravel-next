@@ -12,3 +12,11 @@
   </div>
   <div class="mdc-notched-outline__idle"></div>
 </div>
+
+@if ($helperText ?? false)
+  @component('material.textfield-helper-text', [
+    'isPersistent' => $helperText['isPersistent'] ?? false,
+    'isValidation' => $helperText['isValidation'] ?? false,
+    'message' => $helperText['message'],
+  ]) @endcomponent
+@endif

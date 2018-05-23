@@ -2,7 +2,12 @@ import Button from './Button'
 
 const ButtonContainer = () => ({
   selector: '.button',
-  init: element => Button(element),
+  init: element => (new Button({
+    element
+  })).render(),
 })
 
-export default ButtonContainer
+export {
+  Button,
+  ButtonContainer
+}

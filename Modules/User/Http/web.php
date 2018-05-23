@@ -24,11 +24,7 @@ Route::middleware('auth')
          * Dashboard 
          * ----------------------------------------
          */
-        Route::get('/dashboard', function () {
-            dd(
-                request()->user()
-            );
-        });
+        Route::get('/dashboard', 'DashboardController@index');
     });
 
 Route::middleware('unauth')
@@ -38,6 +34,7 @@ Route::middleware('unauth')
          * Login
          * ---------------------------------------
          */
-        Route::get('/login', '\App\Http\Controllers\Auth\LoginController@login');
+        Route::get('/login', '\App\Http\Controllers\Auth\LoginController@login')
+            ->name('login');
         Route::post('/login', '\App\Http\Controllers\Auth\LoginController@authenticate');
     });

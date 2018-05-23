@@ -1,8 +1,13 @@
-import Drawer from './Drawer'
+import DrawerTemporary from './DrawerTemporary'
 
 const DrawerContainer = () => ({
-  selector: '.mdc-drawer',
-  init: element => Drawer(element)
+  selector: '.mdc-drawer--temporary',
+  init: element => (new DrawerTemporary({
+    element,
+  })).render()
 })
 
-export default DrawerContainer
+export {
+  DrawerTemporary,
+  DrawerContainer
+}

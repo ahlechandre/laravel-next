@@ -13,7 +13,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Injeta o usuário em todos os layouts.
+        view()->composer('*', function($view)
+        {
+            $view->with('user', request()->user());
+        });
     }
 
     /**

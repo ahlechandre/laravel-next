@@ -1,8 +1,16 @@
 import TextField from './TextField'
 
+/**
+ * @return {Object}
+ */
 const TextFieldContainer = () => ({
   selector: '.mdc-text-field',
-  init: element => TextField(element)
+  init: element => (new TextField({
+    element
+  })).render()
 })
 
-export default TextFieldContainer
+export {
+  TextField,
+  TextFieldContainer
+}

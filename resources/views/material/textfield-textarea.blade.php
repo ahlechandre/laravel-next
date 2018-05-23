@@ -3,6 +3,14 @@
   <label for="{{ $attrs['id'] ?? null }}" class="mdc-floating-label">{{ $label }}</label>
 </div>
 
+@if ($helperText ?? false)
+  @component('material.textfield-helper-text', [
+    'isPersistent' => $helperText['isPersistent'] ?? false,
+    'isValidation' => $helperText['isValidation'] ?? false,
+    'message' => $helperText['message'],
+  ]) @endcomponent
+@endif
+
 {{-- 
   @component('material.textfield-textarea', [
     'label' => 'My textarea',

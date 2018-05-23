@@ -1,40 +1,50 @@
-import Mdc from './mdc'
-import DrawerContainer from './drawer'
-import TextFieldContainer from './textfield'
-import TextFieldHelperTextContainer from './textfield-helper-text'
-import ButtonContainer from './button'
-import FilterableContainer from './filterable'
-import ChipableContainer from './chipable'
-import AsyncSelectContainer from './async-select'
-
-const components = [
-  DrawerContainer,  
-  TextFieldContainer,
-  TextFieldHelperTextContainer,
-  ButtonContainer,
-  FilterableContainer,
-  ChipableContainer,
-  AsyncSelectContainer,  
-]
+import { DrawerContainer, DrawerTemporary } from './drawer'
+import { TextFieldContainer, TextField } from './textfield'
+import { TextFieldHelperTextContainer, TextFieldHelperText } from './textfield-helper-text'
+import { ButtonContainer, Button } from './button'
+import { TopAppBarContainer, TopAppBar } from './top-app-bar'
+import { SnackbarContainer, Snackbar } from './snackbar'
+import { AsyncSelectContainer, AsyncSelect } from './async-select'
 
 /**
+ * Inicializa automaticamente todos os componentes indicados.
  * 
- * @param {object} component
  * @return {undefined} 
  */
-const render = component => {
-  let i = 0
-  const elements = document.querySelectorAll(component().selector)
-
-  for (i; i < elements.length; i++) {
-    component().init(elements[i])
-  }
+const autoInit = () => {
+  // Lista de containers de componentes a serem inicializados automaticamente.
+  const containers = [
+    DrawerContainer,  
+    TextFieldContainer,
+    TextFieldHelperTextContainer,
+    ButtonContainer,
+    TopAppBarContainer,  
+    SnackbarContainer
+  ]
+  containers.map(container => {
+    let i = 0
+    const elements = document.querySelectorAll(container().selector)
+  
+    for (i; i < elements.length; i++) {
+      container().init(elements[i])
+    }  
+  })
 }
 
 const app = () => {
-  Mdc()
+  // Inicializa os componentes.
+  autoInit()
 
-  components.map(render)
+  // Disponibiliza todos os componentes globalmente. 
+  window.mdcn = {
+    AsyncSelect,
+    DrawerTemporary,
+    TextField,
+    TextFieldHelperText,
+    Button,
+    TopAppBar,
+    Snackbar
+  }
 }
 
 window.addEventListener('load', app);

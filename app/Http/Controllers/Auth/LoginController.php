@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -25,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -38,8 +40,9 @@ class LoginController extends Controller
     }
 
     /**
+     * Mostra o formulário de login.
      * 
-     * @return Response
+     * @return \Illuminate\Http\Response
      */
     public function login() 
     {
@@ -47,13 +50,27 @@ class LoginController extends Controller
     }
 
     /**
-     * 
-     * @param Request $request
-     * @return Response
+     * Tenta autenticar o usuário.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function authenticate(Request $request) 
     {
-        dd($request->all());
+        $credentials = [
+            'email' => $request->get('email'),
+            'password' => $request->get('password'),
+        ];
+
+        // Tenta autenticar o usuário com as credenciais fornecidas.
+        if (Auth::attempt($credentials)) {
+
+            return redirect($this->redirectTo);
+        }
+
+        return redirect('/login')->withErrors([
+            'auth' => 'E-mail ou senha inválidos'
+        ]);
     }
 
     /**

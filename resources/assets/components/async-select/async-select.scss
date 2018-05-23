@@ -1,3 +1,49 @@
+@keyframes FadeFromTop {
+  0% {
+    top: 75px;
+    opacity: 0;
+  }
+
+  100% {
+    top: 80px;
+    opacity: 1;
+  }
+}
+
+.async-select {
+  position: relative;
+  // Chips
+  & .async-select__chips {
+    & .mdc-chip {
+      margin-right: 4px;
+    }
+  }
+  // Resultados
+  & .async-select__results {
+    display: none;
+    position: absolute;
+    top: 80px;
+    width: 100%;
+    
+    & .mdc-list {
+      background-color: white;
+      @include mdc-elevation(1, #222, 0);
+    }
+
+    &:active {
+      display: block;
+    }
+  }
+}
+
+.async-select--focused {
+
+  & .async-select__results {
+    display: block;
+    animation: FadeFromTop .1s linear;
+  }
+}
+
 .async-select-list-item {
   cursor: pointer;
 }

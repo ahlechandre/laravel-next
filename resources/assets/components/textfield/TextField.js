@@ -1,8 +1,23 @@
 import { MDCTextField } from '@material/textfield'
 
-const TextField = (element) => {
-  // Inicializando o componente.
-  MDCTextField.attachTo(element)
-}
+class TextField {
 
+  /**
+   * @param {Object} props
+   * @return {undefined}
+   */
+  constructor(props) {
+    this.state = {
+      element: props.element
+    }
+  }
+
+  /**
+   * @return {undefined}
+   */
+  render() {
+    // Instanciando o componente.
+    new MDCTextField(this.state.element)
+  }
+}
 export default TextField

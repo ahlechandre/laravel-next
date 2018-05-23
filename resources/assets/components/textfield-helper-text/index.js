@@ -1,8 +1,16 @@
 import TextFieldHelperText from './TextFieldHelperText'
 
+/**
+ * @return {Object}
+ */
 const TextFieldHelperTextContainer = () => ({
   selector: '.mdc-text-field-helper-text',
-  init: element => TextFieldHelperText(element)
+  init: element => (new TextFieldHelperText({
+    element
+  })).render()
 })
 
-export default TextFieldHelperTextContainer
+export {
+  TextFieldHelperText,
+  TextFieldHelperTextContainer
+}

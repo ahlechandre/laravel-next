@@ -13,7 +13,7 @@
 @import '~@material/button/mdc-button';
 @import '~@material/fab/mdc-fab';
 @import '~@material/checkbox/mdc-checkbox';
-@import '~@material/dialog/mdc-dialog';
+// @import '~@material/dialog/mdc-dialog';
 @import '~@material/form-field/mdc-form-field';
 @import '~@material/list/mdc-list';
 @import '~@material/radio/mdc-radio';
@@ -24,9 +24,12 @@
 @import '~@material/linear-progress/mdc-linear-progress';
 @import '~@material/ripple/mdc-ripple';
 @import '~@material/switch/mdc-switch';
-@import '~@material/slider/mdc-slider';
+// @import '~@material/slider/mdc-slider';
 @import '~@material/menu/mdc-menu';
 @import '~@material/chips/mdc-chips';
+@import '~@material/top-app-bar/mdc-top-app-bar';
+@import '~@material/snackbar/mdc-snackbar';
+
 /*
  * ----------------------------------------------------
  * Custom
@@ -34,10 +37,9 @@
  */
 @import 'styles';
 @import 'textfield-helper-text/textfield-helper-text';
-@import 'filterable/filterable';
-@import 'chipable/chipable';
 @import 'drawer/drawer';
 @import 'textfield/textfield';
 @import 'login/login';
 @import 'card/card';
 @import 'async-select/async-select';
+@import 'linear-progress/linear-progress';

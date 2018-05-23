@@ -35,7 +35,7 @@
           'inputs' => [
             [
               'when' => [
-                'desktop' => 12,
+                'default' => 12,
               ],
               'material' => 'textfield-outlined',
               'props' => [
@@ -43,14 +43,21 @@
                 'icon' => 'mail_outline',
                 'attrs' => [
                   'type' => 'email',
+                  'name' => 'email',
+                  'required' => '',
                   'id' => 'textfield-email',
+                ],
+                'helperText' => [
+                  'isValidation' => true,
+                  'isPersistent' => $errors->has('auth'),
+                  'message' => $errors->get('auth')[0] ?? null,
                 ],
                 'modifiers' => ['mdc-text-field--with-trailing-icon'],
               ],
             ],
             [
               'when' => [
-                'desktop' => 12,
+                'default' => 12,
               ],
               'material' => 'textfield-outlined',
               'props' => [
@@ -58,6 +65,8 @@
                 'icon' => 'vpn_key',
                 'attrs' => [
                   'type' => 'password',
+                  'required' => '',
+                  'name' => 'password',
                   'id' => 'textfield-password',
                 ],
                 'modifiers' => ['mdc-text-field--with-trailing-icon'] 
@@ -65,7 +74,7 @@
             ],
             [
               'when' => [
-                'desktop' => 12,
+                'default' => 12,
               ],
               'material' => 'checkbox',
               'props' => [
