@@ -25,6 +25,12 @@ Route::middleware('auth')
          * ----------------------------------------
          */
         Route::get('/dashboard', 'DashboardController@index');
+
+        Route::post('/dashboard', function () {
+            dd(
+                request()->all()
+            );
+        });
     });
 
 Route::middleware('unauth')

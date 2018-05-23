@@ -7,24 +7,76 @@
     @component('material.cell', [
       'when' => ['default' => 12]
     ])
-      @component('components.async-select', [
-        'isMultiple' => true,
+
+      @component('components.form', [
+        'method' => 'post',
+        'action' => url('/dashboard'),
+        'inputs' => [
+          [
+            'when' => [
+              'default' => 12,
+            ],
+            'material' => 'textfield-outlined',
+            'props' => [
+              'label' => 'Nome',
+              'attrs' => [
+                'type' => 'text',
+                'id' => 'textfield-name',
+                'name' => 'name',
+                'required' => '',
+              ],
+            ],
+          ],
+          [
+            'when' => ['default' => 12],
+            'material' => 'async-select',
+            'props' => [
+              'isMultiple' => true,
+              'attrs' => [
+                'id' => 'async-select-users',
+              ],
+              'textfield' => [
+                'label' => 'Selecione os usuários',
+                'icon' => 'group',
+                'attrs' => [
+                  'type' => 'text',
+                  'autocomplete' => 'off', 
+                  'id' => 'async-select-textfield-users', 
+                ]
+              ]
+            ],
+          ],
+        ],
+        'cancel' => [
+          'text' => 'Cancelar',
+          'attrs' => [
+            'href' => url('/'),
+          ],
+        ],
+        'submit' => [
+          'text' => 'Salvar',
+          'icon' => 'check',
+          'attrs' => [
+            'type' => 'submit',
+          ],
+        ],
+      ]) @endcomponent
+      
+      {{-- @component('components.async-select', [
+        'isMultiple' => false,
         'attrs' => [
           'id' => 'async-select'
         ],
         'textfield' => [
-          'label' => 'Usuários',
-          'icon' => 'search',
+          'label' => 'Selecione o usuário',
+          'icon' => 'person',
           'attrs' => [
-            'type' => 'search',
+            'type' => 'text',
             'id' => 'textfield-async-select',
           ],
-          'modifiers' => [
-            'async-select__textfield',
-            'mdc-text-field--with-leading-icon'
-          ],
         ]
-      ]) @endcomponent    
+      ]) @endcomponent --}}
+
     @endcomponent  
   @endcomponent
 @endsection
@@ -33,26 +85,29 @@
 <script>
   (function () {
     const page = function () {
-      const asyncSelectEl = document.querySelector('#async-select');
+      const asyncSelectEl = document.querySelector('#async-select-users');
+
       const component = new mdcn.AsyncSelect({
         element: asyncSelectEl,
         delay: 250,
         api: '/api/users',
-        mapApiToResults: function (data, value) {
+        queryParam: 'id',
+        inputName: 'users[]',
+        mapApiToResults: function (data, query) {
 
           if (!data.length) {
 
             return [
               {
                 key: null,
-                text: 'Nenhum resultado para "' + value + '"',
+                text: 'Nenhum resultado para "' + query + '"',
               }
             ]
           }
-
+          
           return data.map(user => ({
             key: user.id,
-            text: user.text,
+            text: user.name,
           }))
         }
       });

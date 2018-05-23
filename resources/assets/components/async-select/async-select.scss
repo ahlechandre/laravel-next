@@ -23,13 +23,13 @@
   & .async-select__results {
     display: none;
     position: absolute;
+    z-index: 1;
     top: 80px;
     width: 100%;
-    
-    & .mdc-list {
-      background-color: white;
-      @include mdc-elevation(1, #222, 0);
-    }
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: white;
+    @include mdc-elevation(1, #222, 0);  
 
     &:active {
       display: block;

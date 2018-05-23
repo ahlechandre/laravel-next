@@ -1,5 +1,13 @@
 <div {{ setAttributes($attrs ?? []) }} class="async-select{{ $isMultiple ? ' async-select--multiple' : ''}}">  
-  @component('material.textfield-box', $textfield) @endcomponent
+  @component('material.textfield-outlined', array_merge(
+    [
+      'modifiers' => [
+        'async-select__textfield',
+        'mdc-text-field--with-leading-icon'
+      ],
+    ],
+    $textfield)
+  ) @endcomponent
   <div class="async-select__chips"></div>
   <div class="async-select__results"></div>
 </div>

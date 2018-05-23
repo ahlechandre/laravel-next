@@ -147,6 +147,8 @@ class AsyncSelect {
       mapApiToResults: props.mapApiToResults,
       api: props.api,
       delay: props.delay || 250,
+      queryParam: props.queryParam,
+      inputName: props.inputName,
       isMultiple,
       query: null,
       init: {
@@ -266,7 +268,7 @@ class AsyncSelect {
         },
         {
           name: 'name',
-          value: 'users[]',
+          value: this.state.inputName,
         }, 
         {
           name: 'value',
@@ -398,8 +400,8 @@ class AsyncSelect {
    * @return {undefined}
    */
   onSearch(query) {
-    
-    if (!query.trim() || this.state.query === query) {
+
+    if (!query || !query.trim() || this.state.query === query) {
       return
     } 
 
@@ -410,7 +412,7 @@ class AsyncSelect {
     // Define a query string com o valor da busca.
     let params = new URLSearchParams('')
     params.set(
-      AsyncSelect.constants.QUERY_PARAM, 
+      this.state.queryParam || AsyncSelect.constants.QUERY_PARAM, 
       query
     )
     // Realiza uma chamada assíncrona à API indicada.
@@ -451,7 +453,7 @@ class AsyncSelect {
    * 
    * @return {undefined}
    */
-  render() {
+  render() {    
     // Busca ao digitar.
     this.state.elements.textfield.addEventListener(
       'keyup', 
@@ -470,6 +472,23 @@ class AsyncSelect {
       .querySelector('input')
     input.addEventListener('focus', this.onFocus)
     input.addEventListener('blur', this.onLostFocus)
+    
+    if (!input.form) {
+      return this
+    }
+    
+    // Aplica regras de validação ao submeter o formulário.
+    input.form.addEventListener('submit', event => {
+      console.log('submete!')
+
+      if (!input.value.trim()) {
+        input.setCustomValidity('PREENCHA SÁ PORRA MACACO')
+        return
+      }
+
+      console.log('valido!')
+      input.setCustomValidity('')
+    })
 
     return this
   }

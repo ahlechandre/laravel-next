@@ -23,22 +23,38 @@ Route::middleware('auth:api')
             $users = [
                 [
                     'id' => $rand1,
-                    'text' => 'User Nome' . $rand1,
+                    'name' => 'User Nome' . $rand1,
                 ],
                 [
                     'id' => $rand2,
-                    'text' => 'User Nome' . $rand2,
+                    'name' => 'User Nome' . $rand2,
                 ],
                 [
                     'id' => $rand3,
-                    'text' => 'User Nome' . $rand3,
+                    'name' => 'User Nome' . $rand3,
                 ],
                 [
                     'id' => $rand4,
-                    'text' => 'User Nome' . $rand4,
-                ],                
+                    'name' => 'User Nome' . $rand4,
+                ],
+                [
+                    'id' => $rand1,
+                    'name' => 'User Nome' . $rand1,
+                ],
+                [
+                    'id' => $rand2,
+                    'name' => 'User Nome' . $rand2,
+                ],
+                [
+                    'id' => $rand3,
+                    'name' => 'User Nome' . $rand3,
+                ],
+                [
+                    'id' => $rand4,
+                    'name' => 'User Nome' . $rand4,
+                ],                                
             ];
         
-            return response()->json($users);
+            return response()->json([]);
         });        
     });
