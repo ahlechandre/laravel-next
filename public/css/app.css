@@ -9444,6 +9444,7 @@ a {
 }
 
 .async-select .async-select__chips .mdc-chip {
+  margin-top: 4px;
   margin-right: 4px;
 }
 

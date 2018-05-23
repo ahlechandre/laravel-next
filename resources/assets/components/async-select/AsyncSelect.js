@@ -7,35 +7,36 @@ class AsyncSelect {
    * @var {Object}
    */
   static constants = {
-    'MATERIAL_ICON_CANCEL': 'cancel'
+    MATERIAL_ICON_CANCEL: 'cancel',
+    QUERY_PARAM: 'q'
   }
 
   /**
    * @var {Object}
    */
   static classes = {
-    'IS_MULTIPLE': 'async-select--multiple',
-    'TEXTFIELD': 'async-select__textfield',
-    'RESULTS': 'async-select__results',
-    'LIST': 'async-select-list',
-    'LIST_ITEM': 'async-select-list-item',
-    'MDC_LIST': 'mdc-list',
-    'MDC_LIST_ITEM': 'mdc-list-item',
-    'CHIPS': 'async-select__chips',
-    'MDC_CHIP': 'mdc-chip',
-    'MDC_CHIP_TEXT': 'mdc-chip__text',
-    'MDC_CHIP_ICON': 'mdc-chip__icon',
-    'MDC_CHIP_ICON_TRAILING': 'mdc-chip__icon--trailing',
-    'MATERIAL_ICONS': 'material-icons',
-    'INPUT': 'async-select__input',
-    'FOCUSED': 'async-select--focused',
+    IS_MULTIPLE: 'async-select--multiple',
+    TEXTFIELD: 'async-select__textfield',
+    RESULTS: 'async-select__results',
+    LIST: 'async-select-list',
+    LIST_ITEM: 'async-select-list-item',
+    MDC_LIST: 'mdc-list',
+    MDC_LIST_ITEM: 'mdc-list-item',
+    CHIPS: 'async-select__chips',
+    MDC_CHIP: 'mdc-chip',
+    MDC_CHIP_TEXT: 'mdc-chip__text',
+    MDC_CHIP_ICON: 'mdc-chip__icon',
+    MDC_CHIP_ICON_TRAILING: 'mdc-chip__icon--trailing',
+    MATERIAL_ICONS: 'material-icons',
+    INPUT: 'async-select__input',
+    FOCUSED: 'async-select--focused',
   }
 
   /**
    * @var {Object}
    */
   static datasets = {
-    'KEY': 'asyncSelectKey',
+    KEY: 'asyncSelectKey',
   }
   
   /**
@@ -406,8 +407,14 @@ class AsyncSelect {
     this.state.query = query
     // Ativa a barra de progresso linear.
     linearProgressGlobal.setActive()
+    // Define a query string com o valor da busca.
+    let params = new URLSearchParams('')
+    params.set(
+      AsyncSelect.constants.QUERY_PARAM, 
+      query
+    )
     // Realiza uma chamada assíncrona à API indicada.
-    fetch(this.state.api, this.state.init)
+    fetch(`${this.state.api}?${params.toString()}`, this.state.init)
       .then(response => response.json())
       .then(json => this.onSearchSuccess(json, query))
       .catch(error => console.error(error))
