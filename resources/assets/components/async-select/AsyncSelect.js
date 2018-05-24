@@ -20,6 +20,7 @@ class AsyncSelect {
     RESULTS: 'async-select__results',
     LIST: 'async-select-list',
     LIST_ITEM: 'async-select-list-item',
+    LIST_ITEM_SELECTED: 'async-select-list-item--selected',
     MDC_LIST: 'mdc-list',
     MDC_LIST_ITEM: 'mdc-list-item',
     CHIPS: 'async-select__chips',
@@ -29,7 +30,6 @@ class AsyncSelect {
     MDC_CHIP_ICON_TRAILING: 'mdc-chip__icon--trailing',
     MATERIAL_ICONS: 'material-icons',
     INPUT: 'async-select__input',
-    FOCUSED: 'async-select--focused',
   }
 
   /**
@@ -65,7 +65,7 @@ class AsyncSelect {
     return event => {
 
       if (typeof beforeSetTimeout === 'function') {
-        beforeSetTimeout()
+        beforeSetTimeout(event)
       }
       clearTimeout(timer)
       timer = setTimeout(
@@ -119,6 +119,11 @@ class AsyncSelect {
    * @param {HTMLElement} props.element
    * @param {function} props.mapApiToResults
    * @param {string} props.api
+   * @param {string} props.queryParam
+   * @param {string} props.inputName
+   * @param {Object} props.validate
+   * @param {Function} props.validate.check
+   * @param {string} props.validate.message
    * @param {undefined|number} props.delay
    * @return {undefined}
    */
@@ -149,6 +154,7 @@ class AsyncSelect {
       delay: props.delay || 250,
       queryParam: props.queryParam,
       inputName: props.inputName,
+      validate: props.validate,
       isMultiple,
       query: null,
       init: {
@@ -188,9 +194,40 @@ class AsyncSelect {
     this.onSearch = this.onSearch.bind(this)
     this.onSearchSuccess = this.onSearchSuccess.bind(this)
     this.onSearchResultSelect = this.onSearchResultSelect.bind(this)
-    this.onChipCancel = this.onChipCancel.bind(this)
-    this.onFocus = this.onFocus.bind(this)
-    this.onLostFocus = this.onLostFocus.bind(this)
+    this.onCancelChip = this.onCancelChip.bind(this)
+    this.componentWillSearch = this.componentWillSearch.bind(this)
+    this.onComponentKeyDown = this.onComponentKeyDown.bind(this)
+  }
+
+  /**
+   * 
+   * @return {undefined}
+   */
+  updateSelected() {
+    const items = this.state
+      .elements
+      .results
+      .querySelectorAll(`.${
+        AsyncSelect.classes.LIST_ITEM        
+      }`)
+    const chips = this.state
+      .elements
+      .chips
+      .querySelectorAll('input')
+    
+    for (let i = 0; i < items.length; i++) {
+      const key = items[i].dataset[AsyncSelect.datasets.KEY]
+      const isSelected = this.state
+        .elements
+        .chips
+        .querySelector(`input[value="${key}"]`)
+
+      if (isSelected) {
+        items[i].classList.add(AsyncSelect.classes.LIST_ITEM_SELECTED)
+      } else {
+        items[i].classList.remove(AsyncSelect.classes.LIST_ITEM_SELECTED)
+      }
+    } 
   }
 
   /**
@@ -199,7 +236,7 @@ class AsyncSelect {
    * @param {Event} event 
    * @return {undefined}
    */
-  onChipCancel(event) {
+  onCancelChip(event) {
     // Acessa o chip que, no DOM, é o parente do ícone 
     // de cancelamento clicado no evento.
     const chip = event.target.parentNode
@@ -208,6 +245,10 @@ class AsyncSelect {
     // Acessa o parente do chip para removê-lo.
     const chipParent = chip.parentNode
     chipParent.removeChild(chip)
+    // Realiza validação.
+    this.checkValidity() 
+    // Atualiza lista de selecionados.
+    this.updateSelected()
   }
 
   /**
@@ -255,7 +296,7 @@ class AsyncSelect {
         }
       ]
     })
-    chipCancel.addEventListener('click', this.onChipCancel)
+    chipCancel.addEventListener('click', this.onCancelChip)
     // Adiciona o ícone de remoção no chip.
     chip.appendChild(chipCancel)
     // Criando input referente ao chip.
@@ -280,6 +321,8 @@ class AsyncSelect {
     chip.appendChild(input)    
     // Adicionando elementos no DOM.
     this.state.elements.chips.appendChild(chip)
+    // Realiza validação.
+    this.checkValidity()
   }
 
   /**
@@ -288,7 +331,7 @@ class AsyncSelect {
    * @param {string} value 
    * @return {boolean}
    */
-  shouldAddChip(value) {
+  shouldaddChip(value) {
     // Seleciona todos os elementos de input dentro dos chips.
     const inputElements = this.state
       .elements
@@ -321,7 +364,7 @@ class AsyncSelect {
       .dataset[AsyncSelect.datasets['KEY']]
 
     // Verifica se o chip deve ser adicionado ao DOM.
-    if (this.shouldAddChip(value)) {
+    if (this.shouldaddChip(value)) {
 
       // Se o componente não for múltiplo, apenas um item
       // deve ser mostrado por vez.
@@ -331,6 +374,10 @@ class AsyncSelect {
 
       // Mostra o chip referente ao resultado selecionado.
       this.addChip(text, value)
+      // Remove o foco da lista de resultado.
+      this.state.element.focus()
+      // Atualiza lista de selecionados.
+      this.updateSelected()      
     }
   }
 
@@ -345,7 +392,7 @@ class AsyncSelect {
   onSearchSuccess(data, query) {
     // Desativa a barra de progresso.
     linearProgressGlobal.setInactive()
-    
+
     // Mapeia o resultado da API para resultados no componente.
     this.state = {
       ...this.state,
@@ -357,6 +404,20 @@ class AsyncSelect {
       classes: [
         AsyncSelect.classes['LIST'],
         AsyncSelect.classes['MDC_LIST'],
+      ],
+      attributes: [
+        {
+          name: 'role',
+          value: 'menu',
+        },
+        {
+          name: 'aria-hidden',
+          value: 'true',
+        },
+        {
+          name: 'tabindex',
+          value: '-1',
+        }
       ]
     })
 
@@ -368,6 +429,12 @@ class AsyncSelect {
         classes: [
           AsyncSelect.classes['LIST_ITEM'],
           AsyncSelect.classes['MDC_LIST_ITEM'],
+        ],
+        attributes: [
+          {
+            name: 'tabindex',
+            value: '-1',
+          }
         ],
         datasets: [
           {
@@ -388,9 +455,11 @@ class AsyncSelect {
       }
     }
     // Limpa os resultados de busca antes de adicionar a nova lista.
-    AsyncSelect.clear(this.state.elements.results)    
+    AsyncSelect.clear(this.state.elements.results)
     // Adiciona a nova lista de resultados no DOM.
     this.state.elements.results.appendChild(list)
+    // Atualiza os itens selecionados.
+    this.updateSelected()
   }
 
   /**
@@ -423,29 +492,143 @@ class AsyncSelect {
   }
   
   /**
-   * Define o comportamento do componente quando o input está sob foco.
    * 
-   * @param {Event} event
-   * @return {undefined}
+   * @return {boolean}
    */
-  onFocus(event) {
-    // Adiciona a classe de componente focado.
-    this.state.element.classList.add(
-      AsyncSelect.classes['FOCUSED']
-    )
-  }
+  checkValidity() {
 
+    // Se não existe regra de validação.
+    if (!this.state.validate) {
+      return true
+    }
+    const inputSearch = this.state
+      .elements
+      .textfield
+      .querySelector('input')
+    let inputs = this.state
+      .elements
+      .chips
+      .querySelectorAll('input')
+
+    if (!this.state.validate.check(inputs)) {
+      inputSearch.setCustomValidity(
+        this.state.validate.message || 'Campo inválido'
+      )
+
+      return false
+    }
+
+    inputSearch.setCustomValidity('')
+
+    return true
+  }
+  
   /**
-   * Define o comportamento do componente quando o input perde foco.
    * 
    * @param {Event} event
    * @return {undefined}
    */
-  onLostFocus(event) {
-    // Adiciona remove a classe de componente focado.
-    this.state.element.classList.remove(
-      AsyncSelect.classes['FOCUSED']
-    )
+  componentWillSearch(event) {
+    let timer = null
+
+    return event => {
+      // Usando tab.
+      const preventedKeys = [9, 13, 16, 37, 38, 39, 40]
+
+      if (!preventedKeys.includes(event.keyCode)) {
+        // Limpa os resultados de busca.
+        AsyncSelect.clear(this.state.elements.results)
+      }
+      clearTimeout(timer)
+      timer = setTimeout(
+        () => this.onSearch(event.target.value), 
+        this.state.delay
+      )
+    }
+  }
+  
+  /**
+   * 
+   * @param {Event} event
+   * @return {undefined}
+   */
+  onComponentKeyDown(event) {
+    let input = this.state
+      .elements
+      .textfield
+      .querySelector('input')
+    const active = document.activeElement
+    const results = this.state
+      .elements
+      .results
+
+    // Escaping.
+    if (event.keyCode === 27) {
+      event.preventDefault()      
+      input.value = ''
+      input.focus()
+    }
+
+    // Enter em item de resultado.
+    if (event.keyCode === 13) {
+      const isResultItem = results.contains(active)
+
+      if (!isResultItem) {
+        const isChip = this.state
+          .elements
+          .chips
+          .contains(active)
+
+        if (!isChip) {
+          return
+        }
+      }
+      event.preventDefault()
+      // Enter em "remover" chip ou em resultado.
+      active.click()        
+    }
+
+    // Seta para baixo.
+    if (event.keyCode === 40) {
+
+      // Seta para baixo com o input focado.
+      if (input === active) {
+        // Foca no primeiro item de resultado.
+        const firstItem = this.state.elements.results.querySelector(`.${
+          AsyncSelect.classes.LIST_ITEM
+        }`)
+  
+        if (firstItem) {
+          firstItem.focus()
+        }
+
+        return
+      }
+      
+      // Seta para baixo com um item focado.
+      if (results.contains(active)) {
+        
+        // Se existir próximo item, foque.
+        if (active.nextSibling) {
+          event.preventDefault()
+          active.nextSibling.focus()
+        }
+
+        return
+      }
+    }
+
+    // Seta para cima nos resultados.
+    if (event.keyCode === 38 && results.contains(active)) {
+
+      // Se existir resultado anterior, foque.
+      if (active.previousSibling) {
+        event.preventDefault()
+        active.previousSibling.focus()
+      }
+
+      return
+    }
   }
 
   /**
@@ -453,42 +636,26 @@ class AsyncSelect {
    * 
    * @return {undefined}
    */
-  render() {    
-    // Busca ao digitar.
-    this.state.elements.textfield.addEventListener(
-      'keyup', 
-      AsyncSelect.debounce(
-        this.onSearch, 
-        this.state.delay,
-        // Limpa os resultados de busca antes de definir
-        // o timeout da busca.
-        () => AsyncSelect.clear(this.state.elements.results)
-      )
-    )
+  render() {
     // Mostra o resultado da busca ao focar no input.
     const input = this.state
       .elements
       .textfield
       .querySelector('input')
-    input.addEventListener('focus', this.onFocus)
-    input.addEventListener('blur', this.onLostFocus)
-    
+
+    // Busca ao digitar.
+    input.addEventListener('keyup', this.componentWillSearch())
+    this.state.element.addEventListener('keydown', this.onComponentKeyDown)
+
     if (!input.form) {
-      return this
+      input.form.addEventListener('submit', event => {
+
+        if (!this.checkValidity()) {
+          input.focus()
+          event.preventDefault()
+        }
+      })
     }
-    
-    // Aplica regras de validação ao submeter o formulário.
-    input.form.addEventListener('submit', event => {
-      console.log('submete!')
-
-      if (!input.value.trim()) {
-        input.setCustomValidity('PREENCHA SÁ PORRA MACACO')
-        return
-      }
-
-      console.log('valido!')
-      input.setCustomValidity('')
-    })
 
     return this
   }

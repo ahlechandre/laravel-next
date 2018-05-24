@@ -1,6 +1,6 @@
 <div class="text-field mdc-text-field mdc-text-field--box{{ setModifiers($modifiers ?? null) }}">
   @if ($icon ?? false)
-  <i class="material-icons mdc-text-field__icon" tabindex="0" role="button">{{ $icon }}</i>  
+  <i class="material-icons mdc-text-field__icon" role="button">{{ $icon }}</i>  
   @endif
   <input {{ setAttributes($attrs ?? null) }} class="mdc-text-field__input">
   <label class="mdc-floating-label" for="{{ $attrs['id'] ?? null }}">{{ $label }}</label>

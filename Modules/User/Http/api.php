@@ -55,6 +55,6 @@ Route::middleware('auth:api')
                 ],                                
             ];
         
-            return response()->json([]);
+            return response()->json($users);
         });        
     });

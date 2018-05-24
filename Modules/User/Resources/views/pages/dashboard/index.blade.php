@@ -91,6 +91,13 @@
         element: asyncSelectEl,
         delay: 250,
         api: '/api/users',
+        validate: {
+          check: inputs => {
+
+            return inputs.length
+          },
+          message: 'Por favor, preencha este campo.' 
+        },
         queryParam: 'id',
         inputName: 'users[]',
         mapApiToResults: function (data, query) {

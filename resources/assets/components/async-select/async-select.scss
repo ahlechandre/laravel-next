@@ -1,6 +1,8 @@
 @keyframes FadeFromTop {
   0% {
     top: 75px;
+    transform: translate(-10px, -30px);
+    transform: scale(.8, .5);
     opacity: 0;
   }
 
@@ -12,6 +14,8 @@
 
 .async-select {
   position: relative;
+  outline: none;
+
   // Chips
   & .async-select__chips {
     & .mdc-chip {
@@ -20,31 +24,35 @@
     }
   }
   // Resultados
+  & .async-select__data {    
+    &:not(:focus-within) {
+
+      & .async-select__results {
+        display: none;
+      }
+    }
+  }
+
   & .async-select__results {
-    display: none;
+    animation: FadeFromTop .125s linear;
     position: absolute;
+    display: initial;
     z-index: 1;
     top: 80px;
     width: 100%;
     max-height: 300px;
     overflow-y: auto;
     background-color: white;
-    @include mdc-elevation(1, #222, 0);  
-
-    &:active {
-      display: block;
-    }
+    @include mdc-elevation(1, #222, 0);
   }
-}
-
-.async-select--focused {
-
-  & .async-select__results {
-    display: block;
-    animation: FadeFromTop .1s linear;
-  }
+  
 }
 
 .async-select-list-item {
   cursor: pointer;
+
+  &.async-select-list-item--selected {
+    cursor: initial;
+    opacity: .5;
+  }
 }
