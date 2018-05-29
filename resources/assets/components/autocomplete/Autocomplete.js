@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { getHeaders } from '../../api'
+import { getHeaders } from '../../services/api'
 import { linearProgressGlobal } from '../linear-progress'
 
 class MDCAutocomplete {
@@ -93,8 +93,14 @@ class MDCAutocomplete {
 
     // Define os datasets do elemento.
     if (options.datasets) {
+      
       options.datasets.map(
-        dataset => element.dataset[dataset.name] = dataset.value
+        dataset => {
+
+          if (dataset.value) {
+            element.dataset[dataset.name] = dataset.value
+          }
+        }
       )  
     }
 
@@ -222,7 +228,7 @@ class MDCAutocomplete {
         .chips
         .querySelector(`input[value="${key}"]`)
 
-      if (isSelected) {
+      if (!key || isSelected) {
         items[i].classList.add(MDCAutocomplete.classes.LIST_ITEM_SELECTED)
       } else {
         items[i].classList.remove(MDCAutocomplete.classes.LIST_ITEM_SELECTED)
@@ -632,11 +638,36 @@ class MDCAutocomplete {
   }
 
   /**
+   * 
+   * @return {undefined}
+   */
+  hydrate() {
+    // Verifica se o componente já foi renderizado com valores.
+    const values = this.state
+      .elements
+      .chips
+      .querySelectorAll(`.${
+        MDCAutocomplete.classes.MDC_CHIP
+      }`)
+
+    for (let i = 0; i < values.length; i++) {
+      const cancelButton = values[i].querySelector(`.${
+        MDCAutocomplete.classes.MDC_CHIP_ICON
+      }`)
+
+      cancelButton.addEventListener('click', this.onCancelChip)
+    }
+  }
+
+  /**
    * Determina o comportamento para o evento de busca.
    * 
    * @return {undefined}
    */
   render() {
+    // Inicializa o componente, caso já tenha sido renderizado
+    // no servidor.
+    this.hydrate()
     // Mostra o resultado da busca ao focar no input.
     const input = this.state
       .elements
@@ -645,9 +676,14 @@ class MDCAutocomplete {
 
     // Busca ao digitar.
     input.addEventListener('keyup', this.componentWillSearch())
-    this.state.element.addEventListener('keydown', this.onComponentKeyDown)
+    // Determina o comportamento padrão para certas teclas quando pressionadas.
+    this.state
+      .element
+      .addEventListener('keydown', this.onComponentKeyDown)
 
-    if (!input.form) {
+    // Verifica a validade do input ao submeter o formulário,
+    // se existir. 
+    if (input.form) {
       input.form.addEventListener('submit', event => {
 
         if (!this.checkValidity()) {
