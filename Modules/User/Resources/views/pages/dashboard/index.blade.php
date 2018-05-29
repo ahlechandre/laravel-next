@@ -29,7 +29,7 @@
           ],
           [
             'when' => ['default' => 12],
-            'material' => 'async-select',
+            'material' => 'autocomplete',
             'props' => [
               'isMultiple' => true,
               'attrs' => [
@@ -62,21 +62,6 @@
         ],
       ]) @endcomponent
       
-      {{-- @component('components.async-select', [
-        'isMultiple' => false,
-        'attrs' => [
-          'id' => 'async-select'
-        ],
-        'textfield' => [
-          'label' => 'Selecione o usuário',
-          'icon' => 'person',
-          'attrs' => [
-            'type' => 'text',
-            'id' => 'textfield-async-select',
-          ],
-        ]
-      ]) @endcomponent --}}
-
     @endcomponent  
   @endcomponent
 @endsection
@@ -87,14 +72,13 @@
     const page = function () {
       const asyncSelectEl = document.querySelector('#async-select-users');
 
-      const component = new mdcn.AsyncSelect({
+      const component = new mdcn.MDCAutocomplete({
         element: asyncSelectEl,
         delay: 250,
         api: '/api/users',
         validate: {
-          check: inputs => {
-
-            return inputs.length
+          check: function (inputs) {
+            return inputs.length;
           },
           message: 'Por favor, preencha este campo.' 
         },

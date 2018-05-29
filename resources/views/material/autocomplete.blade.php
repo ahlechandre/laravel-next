@@ -1,34 +1,34 @@
-<div {{ setAttributes($attrs ?? []) }} class="async-select{{ $isMultiple ? ' async-select--multiple' : ''}}" tabindex="0">  
-  <div class="async-select__data">
+<div {{ setAttributes($attrs ?? []) }} class="mdc-autocomplete{{ $isMultiple ? ' mdc-autocomplete--multiple' : ''}}" tabindex="0">  
+  <div class="mdc-autocomplete__data">
     @component('material.textfield-outlined', array_merge(
       [
         'modifiers' => [
-          'async-select__textfield',
+          'mdc-autocomplete__textfield',
           'mdc-text-field--with-leading-icon'
         ],
       ],
       $textfield)
     ) @endcomponent
-    <div class="async-select__results"></div>  
+    <div class="mdc-autocomplete__results"></div>  
   </div>
-  <div class="async-select__chips"></div>
+  <div class="mdc-autocomplete__chips"></div>
 </div>
 
 {{--
-  @component('components.async-select', [
+  @component('components.autocomplete', [
     'isMultiple' => true,
     'attrs' => [
-      'id' => 'async-select'
+      'id' => 'mdc-autocomplete'
     ],
     'textfield' => [
       'label' => 'Usuários',
       'icon' => 'search',
       'attrs' => [
         'type' => 'search',
-        'id' => 'textfield-async-select',
+        'id' => 'textfield-mdc-autocomplete',
       ],
       'modifiers' => [
-        'async-select__textfield',
+        'mdc-autocomplete__textfield',
         'mdc-text-field--with-leading-icon'
       ],
     ]
@@ -37,7 +37,7 @@
 
 {{-- Inicialização --}}
 {{-- 
-  const asyncSelectEl = document.querySelector('#async-select');
+  const asyncSelectEl = document.querySelector('#mdc-autocomplete');
   const component = new mdcn.AsyncSelect({
     element: asyncSelectEl,
     delay: 250,

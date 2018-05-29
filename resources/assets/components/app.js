@@ -4,7 +4,7 @@ import { TextFieldHelperTextContainer, TextFieldHelperText } from './textfield-h
 import { ButtonContainer, Button } from './button'
 import { TopAppBarContainer, TopAppBar } from './top-app-bar'
 import { SnackbarContainer, Snackbar } from './snackbar'
-import { AsyncSelectContainer, AsyncSelect } from './async-select'
+import { MDCAutocomplete } from './autocomplete'
 
 /**
  * Inicializa automaticamente todos os componentes indicados.
@@ -37,7 +37,7 @@ const app = () => {
 
   // Disponibiliza todos os componentes globalmente. 
   window.mdcn = {
-    AsyncSelect,
+    MDCAutocomplete,
     DrawerTemporary,
     TextField,
     TextFieldHelperText,

@@ -2,7 +2,7 @@ import fetch from 'cross-fetch'
 import { getHeaders } from '../api'
 import { linearProgressGlobal } from '../linear-progress'
 
-class AsyncSelect {
+class MDCAutocomplete {
   /**
    * @var {Object}
    */
@@ -15,28 +15,28 @@ class AsyncSelect {
    * @var {Object}
    */
   static classes = {
-    IS_MULTIPLE: 'async-select--multiple',
-    TEXTFIELD: 'async-select__textfield',
-    RESULTS: 'async-select__results',
-    LIST: 'async-select-list',
-    LIST_ITEM: 'async-select-list-item',
-    LIST_ITEM_SELECTED: 'async-select-list-item--selected',
+    IS_MULTIPLE: 'mdc-autocomplete--multiple',
+    TEXTFIELD: 'mdc-autocomplete__textfield',
+    RESULTS: 'mdc-autocomplete__results',
+    LIST: 'mdc-autocomplete-list',
+    LIST_ITEM: 'mdc-autocomplete-list-item',
+    LIST_ITEM_SELECTED: 'mdc-autocomplete-list-item--selected',
     MDC_LIST: 'mdc-list',
     MDC_LIST_ITEM: 'mdc-list-item',
-    CHIPS: 'async-select__chips',
+    CHIPS: 'mdc-autocomplete__chips',
     MDC_CHIP: 'mdc-chip',
     MDC_CHIP_TEXT: 'mdc-chip__text',
     MDC_CHIP_ICON: 'mdc-chip__icon',
     MDC_CHIP_ICON_TRAILING: 'mdc-chip__icon--trailing',
     MATERIAL_ICONS: 'material-icons',
-    INPUT: 'async-select__input',
+    INPUT: 'mdc-autocomplete__input',
   }
 
   /**
    * @var {Object}
    */
   static datasets = {
-    KEY: 'asyncSelectKey',
+    KEY: 'MDCAutocompleteKey',
   }
   
   /**
@@ -130,21 +130,21 @@ class AsyncSelect {
   constructor(props) {
 
     if (!props.element) {
-      throw new Error('Please, provide an element (`.async-select`)')
+      throw new Error('Please, provide an element (`.mdc-autocomplete`)')
     }
     const textfield = props.element
       .querySelector(`.${
-        AsyncSelect.classes['TEXTFIELD']
+        MDCAutocomplete.classes['TEXTFIELD']
       }`)
     const results = props.element
       .querySelector(`.${
-        AsyncSelect.classes['RESULTS']    
+        MDCAutocomplete.classes['RESULTS']    
       }`)
     const chips = props.element
-      .querySelector(`.${AsyncSelect.classes['CHIPS']}`)
+      .querySelector(`.${MDCAutocomplete.classes['CHIPS']}`)
     const isMultiple = props.element
       .classList
-      .contains(AsyncSelect.classes['IS_MULTIPLE'])
+      .contains(MDCAutocomplete.classes['IS_MULTIPLE'])
     
     // Define o estado inicial do componente.
     this.state = {
@@ -180,15 +180,15 @@ class AsyncSelect {
     }
 
     if (!this.state.elements.textfield) {
-      throw new Error('Please, provide a textfield element (`.async-select > .async-select__textfield`)')
+      throw new Error('Please, provide a textfield element (`.mdc-autocomplete > .mdc-autocomplete__textfield`)')
     }
 
     if (!this.state.elements.results) {
-      throw new Error('Please, provide a results element (`.async-select > .async-select__results`)')
+      throw new Error('Please, provide a results element (`.mdc-autocomplete > .mdc-autocomplete__results`)')
     }
     
     if (!this.state.elements.chips) {
-      throw new Error('Please, provide a chips element (`.async-select > .async-select__chips`)')
+      throw new Error('Please, provide a chips element (`.mdc-autocomplete > .mdc-autocomplete__chips`)')
     }
     // Faz o bind de todos os callbacks.
     this.onSearch = this.onSearch.bind(this)
@@ -208,7 +208,7 @@ class AsyncSelect {
       .elements
       .results
       .querySelectorAll(`.${
-        AsyncSelect.classes.LIST_ITEM        
+        MDCAutocomplete.classes.LIST_ITEM        
       }`)
     const chips = this.state
       .elements
@@ -216,16 +216,16 @@ class AsyncSelect {
       .querySelectorAll('input')
     
     for (let i = 0; i < items.length; i++) {
-      const key = items[i].dataset[AsyncSelect.datasets.KEY]
+      const key = items[i].dataset[MDCAutocomplete.datasets.KEY]
       const isSelected = this.state
         .elements
         .chips
         .querySelector(`input[value="${key}"]`)
 
       if (isSelected) {
-        items[i].classList.add(AsyncSelect.classes.LIST_ITEM_SELECTED)
+        items[i].classList.add(MDCAutocomplete.classes.LIST_ITEM_SELECTED)
       } else {
-        items[i].classList.remove(AsyncSelect.classes.LIST_ITEM_SELECTED)
+        items[i].classList.remove(MDCAutocomplete.classes.LIST_ITEM_SELECTED)
       }
     } 
   }
@@ -241,7 +241,7 @@ class AsyncSelect {
     // de cancelamento clicado no evento.
     const chip = event.target.parentNode
     // Remove todos os seus nós filhos.
-    AsyncSelect.clear(chip)
+    MDCAutocomplete.clear(chip)
     // Acessa o parente do chip para removê-lo.
     const chipParent = chip.parentNode
     chipParent.removeChild(chip)
@@ -260,30 +260,30 @@ class AsyncSelect {
    */
   addChip(text, value) {
     // Criando o componente de chip para o item selecionado.
-    const chip = AsyncSelect.create({
+    const chip = MDCAutocomplete.create({
       tag: 'div',
       classes: [
-        AsyncSelect.classes['MDC_CHIP'],
+        MDCAutocomplete.classes['MDC_CHIP'],
       ],
     })
     // Criando o elemento de texto do chip.
-    const chipText = AsyncSelect.create({
+    const chipText = MDCAutocomplete.create({
       tag: 'div',
       text,
       classes: [
-        AsyncSelect.classes['MDC_CHIP_TEXT'],
+        MDCAutocomplete.classes['MDC_CHIP_TEXT'],
       ],
     })  
     // Adiciona o texto no chip. 
     chip.appendChild(chipText)
     // Criando o botão para remover o chip.
-    const chipCancel = AsyncSelect.create({
+    const chipCancel = MDCAutocomplete.create({
       tag: 'i',
-      text: AsyncSelect.constants['MATERIAL_ICON_CANCEL'],
+      text: MDCAutocomplete.constants['MATERIAL_ICON_CANCEL'],
       classes: [
-        AsyncSelect.classes['MATERIAL_ICONS'],
-        AsyncSelect.classes['MDC_CHIP_ICON'],
-        AsyncSelect.classes['MDC_CHIP_ICON_TRAILING']
+        MDCAutocomplete.classes['MATERIAL_ICONS'],
+        MDCAutocomplete.classes['MDC_CHIP_ICON'],
+        MDCAutocomplete.classes['MDC_CHIP_ICON_TRAILING']
       ],
       attributes: [
         {
@@ -300,7 +300,7 @@ class AsyncSelect {
     // Adiciona o ícone de remoção no chip.
     chip.appendChild(chipCancel)
     // Criando input referente ao chip.
-    const input = AsyncSelect.create({
+    const input = MDCAutocomplete.create({
       tag: 'input',
       attributes: [
         {
@@ -361,7 +361,7 @@ class AsyncSelect {
     const text = event.target.textContent
     // Define o valor do input a ser criado.
     const value = event.target
-      .dataset[AsyncSelect.datasets['KEY']]
+      .dataset[MDCAutocomplete.datasets['KEY']]
 
     // Verifica se o chip deve ser adicionado ao DOM.
     if (this.shouldaddChip(value)) {
@@ -369,7 +369,7 @@ class AsyncSelect {
       // Se o componente não for múltiplo, apenas um item
       // deve ser mostrado por vez.
       if (!this.state.isMultiple) {
-        AsyncSelect.clear(this.state.elements.chips)
+        MDCAutocomplete.clear(this.state.elements.chips)
       }
 
       // Mostra o chip referente ao resultado selecionado.
@@ -399,11 +399,11 @@ class AsyncSelect {
       results: this.state.mapApiToResults(data, query),      
     }
     // Cria um elemento para listar os resultados.
-    const list = AsyncSelect.create({
+    const list = MDCAutocomplete.create({
       tag: 'ul',
       classes: [
-        AsyncSelect.classes['LIST'],
-        AsyncSelect.classes['MDC_LIST'],
+        MDCAutocomplete.classes['LIST'],
+        MDCAutocomplete.classes['MDC_LIST'],
       ],
       attributes: [
         {
@@ -423,12 +423,12 @@ class AsyncSelect {
 
     for (let i = 0; i < this.state.results.length; i++) {
       // Cria o elemento para um resultado de busca.
-      const item = AsyncSelect.create({
+      const item = MDCAutocomplete.create({
         tag: 'li',
         text: this.state.results[i]['text'],
         classes: [
-          AsyncSelect.classes['LIST_ITEM'],
-          AsyncSelect.classes['MDC_LIST_ITEM'],
+          MDCAutocomplete.classes['LIST_ITEM'],
+          MDCAutocomplete.classes['MDC_LIST_ITEM'],
         ],
         attributes: [
           {
@@ -438,7 +438,7 @@ class AsyncSelect {
         ],
         datasets: [
           {
-            name: AsyncSelect.datasets['KEY'],
+            name: MDCAutocomplete.datasets['KEY'],
             value: this.state.results[i]['key'],
           }
         ]
@@ -455,7 +455,7 @@ class AsyncSelect {
       }
     }
     // Limpa os resultados de busca antes de adicionar a nova lista.
-    AsyncSelect.clear(this.state.elements.results)
+    MDCAutocomplete.clear(this.state.elements.results)
     // Adiciona a nova lista de resultados no DOM.
     this.state.elements.results.appendChild(list)
     // Atualiza os itens selecionados.
@@ -481,7 +481,7 @@ class AsyncSelect {
     // Define a query string com o valor da busca.
     let params = new URLSearchParams('')
     params.set(
-      this.state.queryParam || AsyncSelect.constants.QUERY_PARAM, 
+      this.state.queryParam || MDCAutocomplete.constants.QUERY_PARAM, 
       query
     )
     // Realiza uma chamada assíncrona à API indicada.
@@ -537,7 +537,7 @@ class AsyncSelect {
 
       if (!preventedKeys.includes(event.keyCode)) {
         // Limpa os resultados de busca.
-        AsyncSelect.clear(this.state.elements.results)
+        MDCAutocomplete.clear(this.state.elements.results)
       }
       clearTimeout(timer)
       timer = setTimeout(
@@ -595,7 +595,7 @@ class AsyncSelect {
       if (input === active) {
         // Foca no primeiro item de resultado.
         const firstItem = this.state.elements.results.querySelector(`.${
-          AsyncSelect.classes.LIST_ITEM
+          MDCAutocomplete.classes.LIST_ITEM
         }`)
   
         if (firstItem) {
@@ -661,4 +661,4 @@ class AsyncSelect {
   }
 }
 
-export default AsyncSelect
+export default MDCAutocomplete

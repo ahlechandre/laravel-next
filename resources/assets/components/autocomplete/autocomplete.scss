@@ -12,28 +12,28 @@
   }
 }
 
-.async-select {
+.mdc-autocomplete {
   position: relative;
   outline: none;
 
   // Chips
-  & .async-select__chips {
+  & .mdc-autocomplete__chips {
     & .mdc-chip {
       margin-top: 4px;
       margin-right: 4px;
     }
   }
   // Resultados
-  & .async-select__data {    
+  & .mdc-autocomplete__data {    
     &:not(:focus-within) {
 
-      & .async-select__results {
+      & .mdc-autocomplete__results {
         display: none;
       }
     }
   }
 
-  & .async-select__results {
+  & .mdc-autocomplete__results {
     animation: FadeFromTop .125s linear;
     position: absolute;
     display: initial;
@@ -48,10 +48,10 @@
   
 }
 
-.async-select-list-item {
+.mdc-autocomplete-list-item {
   cursor: pointer;
 
-  &.async-select-list-item--selected {
+  &.mdc-autocomplete-list-item--selected {
     cursor: initial;
     opacity: .5;
   }
