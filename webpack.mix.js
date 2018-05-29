@@ -22,8 +22,8 @@ const copies = [
   },
 ];
 copies.map(asset => mix.copy(asset.from, asset.to));
-mix.js('resources/assets/components/app.js', 'public/js');
-mix.sass('resources/assets/components/app.scss', 'public/css', {
+mix.js('resources/assets/app.js', 'public/js');
+mix.sass('resources/assets/app.scss', 'public/css', {
   includePaths: [
     'node_modules',
   ],
