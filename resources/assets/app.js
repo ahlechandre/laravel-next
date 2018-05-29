@@ -1,10 +1,10 @@
-import { DrawerContainer, DrawerTemporary } from './drawer'
-import { TextFieldContainer, TextField } from './textfield'
-import { TextFieldHelperTextContainer, TextFieldHelperText } from './textfield-helper-text'
-import { ButtonContainer, Button } from './button'
-import { TopAppBarContainer, TopAppBar } from './top-app-bar'
-import { SnackbarContainer, Snackbar } from './snackbar'
-import { MDCAutocomplete } from './autocomplete'
+import { DrawerContainer, DrawerTemporary } from './components/drawer'
+import { TextFieldContainer, TextField } from './components/textfield'
+import { TextFieldHelperTextContainer, TextFieldHelperText } from './components/textfield-helper-text'
+import { ButtonContainer, Button } from './components/button'
+import { TopAppBarContainer, TopAppBar } from './components/top-app-bar'
+import { SnackbarContainer, Snackbar } from './components/snackbar'
+import { MDCAutocomplete } from './components/autocomplete'
 
 /**
  * Inicializa automaticamente todos os componentes indicados.

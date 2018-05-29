@@ -3,7 +3,7 @@
  * Material Components Web
  * ----------------------------------------------------
  */
-@import 'colors';
+@import './colors';
 @import '~@material/theme/mdc-theme';
 @import '~@material/typography/mdc-typography';
 @import '~@material/layout-grid/mdc-layout-grid';
@@ -13,7 +13,7 @@
 @import '~@material/button/mdc-button';
 @import '~@material/fab/mdc-fab';
 @import '~@material/checkbox/mdc-checkbox';
-// @import '~@material/dialog/mdc-dialog';
+@import '~@material/dialog/mdc-dialog';
 @import '~@material/form-field/mdc-form-field';
 @import '~@material/list/mdc-list';
 @import '~@material/radio/mdc-radio';
@@ -24,7 +24,7 @@
 @import '~@material/linear-progress/mdc-linear-progress';
 @import '~@material/ripple/mdc-ripple';
 @import '~@material/switch/mdc-switch';
-// @import '~@material/slider/mdc-slider';
+@import '~@material/slider/mdc-slider';
 @import '~@material/menu/mdc-menu';
 @import '~@material/chips/mdc-chips';
 @import '~@material/top-app-bar/mdc-top-app-bar';
@@ -35,11 +35,11 @@
  * Custom
  * ----------------------------------------------------
  */
-@import 'styles';
-@import 'textfield-helper-text/textfield-helper-text';
-@import 'drawer/drawer';
-@import 'textfield/textfield';
-@import 'login/login';
-@import 'card/card';
-@import 'autocomplete/autocomplete';
-@import 'linear-progress/linear-progress';
+@import './styles';
+@import './components/textfield-helper-text/textfield-helper-text';
+@import './components/drawer/drawer';
+@import './components/textfield/textfield';
+@import './components/login/login';
+@import './components/card/card';
+@import './components/autocomplete/autocomplete';
+@import './components/linear-progress/linear-progress';

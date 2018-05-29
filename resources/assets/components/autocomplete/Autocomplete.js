@@ -1,5 +1,5 @@
 import fetch from 'cross-fetch'
-import { getHeaders } from '../api'
+import { getHeaders } from '../../api'
 import { linearProgressGlobal } from '../linear-progress'
 
 class MDCAutocomplete {
