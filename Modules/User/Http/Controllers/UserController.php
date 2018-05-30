@@ -4,32 +4,82 @@ namespace Modules\User\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Modules\User\Entities\Role;
+use Modules\User\Entities\User;
 use Illuminate\Routing\Controller;
+use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     * @return Response
+     * Repositório de dados.
+     *
+     * @var \Modules\User\Repositories\UserRepository
      */
-    public function index()
+    protected $users;
+
+    /**
+     * Quantidade de recursos por página.
+     *
+     * @var int
+     */
+    static public $perPage = 10;
+
+    /**
+     * Inicializa o controlador com a instância do repositório de dados.
+     *
+     * @param \Modules\User\Repositories\UserRepository $users
+     * @return void
+     */
+    public function __construct(UserRepository $users)
     {
-        return view('user::index');
+        $this->users = $users;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $user = $request->user();
+        $perPage = self::$perPage;
+        $query = $request->get('q');
+        $users = $this->users
+            ->index($user, $perPage, $query);
+
+        return view('user::pages.users.index', [
+            'users' => $users
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('user::create');
+        $user = $request->user();
+        
+        if ($user->cant('create', User::class)) {
+            abort(403);
+        }
+        $roles = Role::all();
+
+        return view('user::pages.users.create', [
+            'roles' => $roles
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
-     * @param  Request $request
-     * @return Response
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
@@ -37,36 +87,34 @@ class UserController extends Controller
 
     /**
      * Show the specified resource.
-     * @return Response
+     *
+     * @param   string  $user
+     * @return  \Illuminate\Http\Response
      */
     public function show()
     {
-        return view('user::show');
+        return view('user::pages.users.show');
     }
 
     /**
      * Show the form for editing the specified resource.
-     * @return Response
+     *
+     * @param  string  $user
+     * @return \Illuminate\Http\Response
      */
     public function edit()
     {
-        return view('user::edit');
+        return view('user::pages.users.edit');
     }
 
     /**
      * Update the specified resource in storage.
-     * @param  Request $request
-     * @return Response
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @param  string  $user
+     * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     * @return Response
-     */
-    public function destroy()
     {
     }
 }

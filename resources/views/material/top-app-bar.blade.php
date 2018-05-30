@@ -1,7 +1,7 @@
 <header class="mdc-top-app-bar{{ setModifiers($modifiers ?? null) }}">
   <div class="mdc-top-app-bar__row">
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
-      <a href="#" id="top-app-bar-menu" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+      <a {{ setAttributes($menu['attrs']) }} class="material-icons mdc-top-app-bar__navigation-icon">{{ $menu['icon'] }}</a>
       <span class="mdc-top-app-bar__title">{{ $title }}</span>
     </section>
     <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end" role="toolbar">

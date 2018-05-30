@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Dashboard')
+@section('title', 'Usuários')
 
 @section('main')
 
@@ -7,7 +7,9 @@
     @component('material.cell', [
       'when' => ['default' => 12]
     ])
-      <h1 class="mdc-typography--headline4">Dashboard</h1>      
+      @foreach ($users as $userToShow)
+          {{ $userToShow->name }}
+      @endforeach
     @endcomponent  
   @endcomponent
 @endsection

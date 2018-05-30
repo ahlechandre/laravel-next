@@ -109,7 +109,7 @@ function setMaterialCellsWhen($when) {
  * @param string|array $paths
  * @return bool
  */
-function isCurrentPage($paths) {
+function isActivePage($paths) {
     $requested = request()->path();
 
     if (is_string($paths)) {

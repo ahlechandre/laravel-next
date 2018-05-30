@@ -31,21 +31,42 @@ class User extends Authenticatable
     ];
 
     /**
-     * 
-     * @return BelongsTo
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function role() 
+    public function role()
     {
         return $this->belongsTo(Role::class);
     }
 
     /**
-     * 
-     * @param string $value
+     *
+     * @param  string  $value
      * @return void
      */
-    protected function setPasswordAttribute($value) 
+    protected function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * Verifica se o usuário tem o papel indicado.
+     *
+     * @param  string  $roleSlug
+     * @return bool
+     */
+    public function hasRole($roleSlug)
+    {
+        return $this->role->slug === $roleSlug;
+    }
+
+    /**
+     * Verifica se o usuário tem papel de administrador.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->hasRole('admin');
     }
 }

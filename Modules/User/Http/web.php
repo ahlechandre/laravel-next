@@ -19,10 +19,12 @@ Route::middleware('auth')
          * ----------------------------------------
          */
         Route::get('/dashboard', 'DashboardController@index');
-
-        Route::post('/dashboard', function () {
-            dd(
-                request()->all()
-            );
-        });
+        /**
+         * ----------------------------------------
+         * Usuários 
+         * ----------------------------------------
+         */
+        Route::resource('users', 'UserController')->except([
+            'destroy'
+        ]);
     });

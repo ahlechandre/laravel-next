@@ -1,4 +1,4 @@
-<div class="mdc-select">
+<div class="select mdc-select mdc-select--box">
   <select class="mdc-select__native-control" {{ setAttributes($attrs ?? null) }}>
     @foreach ($options as $option)
       <option {{ setAttributes($option['attrs'] ?? null) }}>
@@ -6,7 +6,7 @@
       </option>
     @endforeach
   </select>
-  <label class="mdc-floating-label{{ setModifiers($labelModifiers ?? null) }}">{{ $label }}</label>
+  <label class="mdc-floating-label mdc-floating-label--float-above">{{ $label }}</label>
   <div class="mdc-line-ripple"></div>
 </div>
 

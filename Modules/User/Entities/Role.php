@@ -14,21 +14,11 @@ class Role extends Model
     ];
 
     /**
-     * 
-     * @return HasMany
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function users() 
+    public function users()
     {
         return $this->hasMany(User::class);
-    }
-
-    /**
-     * 
-     * @return Role
-     */
-    public static function admin() 
-    {
-        return self::where('slug', 'admin')
-            ->first();
     }
 }

@@ -29,9 +29,9 @@
     {{-- Barra de navegação --}}
     @component('material.top-app-bar', [
       'modifiers' => ['mdc-top-app-bar--fixed'],
-      'title' => 'App',
+      'title' => $topAppBarTitle ?? 'App',
       'actions' => $topAppBarActions ?? [],
-      'menu' => [
+      'menu' => $topAppBarMenu ?? [
         'icon' => 'menu',
         'attrs' => [
           'href' => '#', 
@@ -40,41 +40,15 @@
       ]
     ]) @endcomponent
 
-    {{-- Drawer --}}
-    @component('material.drawer-temporary', [
-      'title' => $user->name,
-      'subtitle' => $user->email,
-      'items' => [
-        [
-          'text' => 'Dashboard',
-          'icon' => 'dashboard',
-          'isActive' => isActivePage('dashboard'),
-          'attrs' => [
-            'href' => url('/dashboard'),
-          ],
-        ],
-        [
-          'text' => 'Usuários',
-          'icon' => 'person',
-          'isActive' => isActivePage('users'),
-          'attrs' => [
-            'href' => url('/users'),
-          ],
-        ],        
-        [
-          'text' => 'Sair',
-          'icon' => 'exit_to_app',
-          'isActive' => false,
-          'attrs' => [
-            'href' => url('/logout'),
-          ],
-        ],        
-      ], 
-    ]) @endcomponent
-
     {{-- Conteúdo da página --}}
     <main class="mdc-top-app-bar--fixed-adjust">
-      @yield('main')
+      <div class="layout-grid-surface"></div>
+
+      @component('material.layout-grid', [
+        'modifiers' => ['layout-grid--with-form'],
+      ])
+        @yield('main')
+      @endcomponent
     </main>
 
     {{-- Snackbars --}}

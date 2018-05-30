@@ -15,29 +15,30 @@
     @endforeach
 
     {{-- Cancelar --}}
-    @component('material.cell', [
-      'when' => [
-        'desktop' => 6,
-        'tablet' => 4,
-        'phone' => 2,
-      ]
-    ])
-      @if ($cancel ?? false)
-        @component('material.button-link', $cancel) @endcomponent    
-      @endif
-    @endcomponent
+    @if ($cancel ?? false)
+      @component('material.cell', [
+        'when' => [
+          'desktop' => 6,
+          'tablet' => 4,
+          'phone' => 2,
+        ]
+      ])
+          @component('material.button-link', $cancel) @endcomponent    
+      @endcomponent
+    @endif
 
     {{-- Submeter --}}
-    @component('material.cell', [
-      'modifiers' => ['mdc-layout-grid--align-right'],
-      'when' => [
-        'desktop' => 6,
-        'tablet' => 4,
-        'phone' => 2,
-      ]
-    ])
-      @component('material.button', $submit) @endcomponent
-    @endcomponent
+    @if ($submit ?? false)
+      @component('material.cell', [
+        'when' => [
+          'desktop' => 6,
+          'tablet' => 4,
+          'phone' => 2,
+        ]
+      ])
+        @component('material.button', $submit) @endcomponent
+      @endcomponent    
+    @endif
 
   @endcomponent
 </form>

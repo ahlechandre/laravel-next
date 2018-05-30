@@ -1,20 +1,29 @@
 .card {
   background-color: white;
+
+  .card__primary {
+    padding: 1rem;
+  
+    & .card__title {
+      margin: 0;
+    }
+  
+    & .card__subtitle {
+      margin: 0;
+      color: rgba(0,0,0,.54);
+    }
+  }
+  
+  .card__body {
+    padding: 0 1rem 8px;
+  }
 }
 
-.card__primary {
-  padding: 1rem;
-
+.card--with-form {
+  padding: 18px;
+  border-top: 10px solid $mdc-theme-primary-light;
+  
   & .card__title {
-    margin: 0;
+    margin-bottom: 12px!important;
   }
-
-  & .card__subtitle {
-    margin: 0;
-    color: rgba(0,0,0,.54);
-  }
-}
-
-.card__body {
-  padding: 0 1rem 8px;
 }

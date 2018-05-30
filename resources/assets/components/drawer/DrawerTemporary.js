@@ -39,7 +39,8 @@ class DrawerTemporary {
     if (!toggleButton) {
       return
     }
-    toggleButton.addEventListener('click', () => {
+    toggleButton.addEventListener('click', event => {
+      event.preventDefault()
       drawer.open = !drawer.open
     })
   }
