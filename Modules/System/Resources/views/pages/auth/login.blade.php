@@ -5,35 +5,13 @@
   @component('components.page', [
     'modifiers' => ['page-login']
   ])
-    <div class="ra-page-login__surface">
-      @component('material.layout-grid-with-inner', [
-        'attrs' => [
-          'style' => 'max-width: 400px'
-        ]
-      ])
-
-        @component('material.cell', [
-          'when' => [
-            'default' => 12
-          ],
-        ])
-          <h1 class="mdc-typography--headline4">Log In</h1>
-          <h1 class="mdc-typography--headline5">Log In</h1>
-        @endcomponent
-        
-      @endcomponent        
-    </div>
-
-    @component('material.layout-grid-with-inner', [
-      'attrs' => [
-        'style' => 'max-width: 400px'
-      ]
-    ])
+    @component('material.layout-grid-with-inner')
 
       @component('material.cell', [
         'when' => [
           'default' => 12
         ],
+        'modifiers' => ['mdc-layout-grid__cell--align-middle']
       ])        
         @component('material.card', [
           'title' => 'Log In',
@@ -58,10 +36,9 @@
                 'when' => [
                   'default' => 12,
                 ],
-                'material' => 'textfield-outlined',
+                'material' => 'textfield',
                 'props' => [
                   'label' => 'E-mail',
-                  'icon' => 'mail_outline',
                   'attrs' => [
                     'type' => 'email',
                     'name' => 'email',
@@ -73,24 +50,21 @@
                     'isPersistent' => $errors->has('auth'),
                     'message' => $errors->get('auth')[0] ?? null,
                   ],
-                  'modifiers' => ['mdc-text-field--with-trailing-icon'],
                 ],
               ],
               [
                 'when' => [
                   'default' => 12,
                 ],
-                'material' => 'textfield-outlined',
+                'material' => 'textfield',
                 'props' => [
                   'label' => 'Senha',
-                  'icon' => 'vpn_key',
                   'attrs' => [
                     'type' => 'password',
                     'required' => '',
                     'name' => 'password',
                     'id' => 'textfield-password',
                   ],
-                  'modifiers' => ['mdc-text-field--with-trailing-icon'] 
                 ],
               ],
               [
@@ -103,7 +77,7 @@
                   'attrs' => [
                     'name' => 'remember_me',
                     'id' => 'checkbox-remember-me',
-                    'checked' => '',
+                    'checked' => true,
                   ],
                 ],
               ],            

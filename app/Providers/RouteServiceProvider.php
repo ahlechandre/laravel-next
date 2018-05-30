@@ -52,7 +52,8 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         $modules = [
-            'User'
+            'User',
+            'System'
         ];
 
         foreach ($modules as $module) {

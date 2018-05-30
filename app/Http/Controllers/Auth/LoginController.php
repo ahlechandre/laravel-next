@@ -46,7 +46,7 @@ class LoginController extends Controller
      */
     public function login() 
     {
-        return view('user::pages.auth.login');
+        return view('system::pages.auth.login');
     }
 
     /**
@@ -61,9 +61,10 @@ class LoginController extends Controller
             'email' => $request->get('email'),
             'password' => $request->get('password'),
         ];
+        $remember = $request->get('remember_me') ? true : false;
 
         // Tenta autenticar o usuário com as credenciais fornecidas.
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credentials, $remember)) {
 
             return redirect($this->redirectTo);
         }

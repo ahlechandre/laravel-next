@@ -36,10 +36,12 @@
  * ----------------------------------------------------
  */
 @import './styles';
+// Components
 @import './components/textfield-helper-text/textfield-helper-text';
 @import './components/drawer/drawer';
 @import './components/textfield/textfield';
-@import './components/login/login';
 @import './components/card/card';
 @import './components/autocomplete/autocomplete';
 @import './components/linear-progress/linear-progress';
+// Pages
+@import './pages/login/login'

@@ -15,14 +15,20 @@ Route::middleware('auth')
     ->group(function () {
         /**
          * ----------------------------------------
-         * Dashboard 
+         * Log out 
          * ----------------------------------------
          */
-        Route::get('/dashboard', 'DashboardController@index');
+        Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    });
 
-        Route::post('/dashboard', function () {
-            dd(
-                request()->all()
-            );
-        });
+Route::middleware('unauth')
+    ->group(function () {
+        /**
+         * ---------------------------------------
+         * Login
+         * ---------------------------------------
+         */
+        Route::get('/login', '\App\Http\Controllers\Auth\LoginController@login')
+            ->name('login');
+        Route::post('/login', '\App\Http\Controllers\Auth\LoginController@authenticate');
     });

@@ -7,61 +7,7 @@
     @component('material.cell', [
       'when' => ['default' => 12]
     ])
-
-      @component('components.form', [
-        'method' => 'post',
-        'action' => url('/dashboard'),
-        'inputs' => [
-          [
-            'when' => [
-              'default' => 12,
-            ],
-            'material' => 'textfield-outlined',
-            'props' => [
-              'label' => 'Nome',
-              'attrs' => [
-                'type' => 'text',
-                'id' => 'textfield-name',
-                'name' => 'name',
-                'required' => '',
-              ],
-            ],
-          ],
-          [
-            'when' => ['default' => 12],
-            'material' => 'autocomplete',
-            'props' => [
-              'isMultiple' => true,
-              'attrs' => [
-                'id' => 'async-select-users',
-              ],
-              'textfield' => [
-                'label' => 'Selecione os usuários',
-                'icon' => 'group',
-                'attrs' => [
-                  'type' => 'text',
-                  'autocomplete' => 'off', 
-                  'id' => 'async-select-textfield-users', 
-                ]
-              ]
-            ],
-          ],
-        ],
-        'cancel' => [
-          'text' => 'Cancelar',
-          'attrs' => [
-            'href' => url('/'),
-          ],
-        ],
-        'submit' => [
-          'text' => 'Salvar',
-          'icon' => 'check',
-          'attrs' => [
-            'type' => 'submit',
-          ],
-        ],
-      ]) @endcomponent
-      
+      <h1 class="mdc-typography--display1">Dashboard</h1>      
     @endcomponent  
   @endcomponent
 @endsection
