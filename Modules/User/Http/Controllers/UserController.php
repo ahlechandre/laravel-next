@@ -7,6 +7,7 @@ use Illuminate\Http\Response;
 use Modules\User\Entities\Role;
 use Modules\User\Entities\User;
 use Illuminate\Routing\Controller;
+use Modules\User\Http\Requests\UserRequest;
 use Modules\User\Repositories\UserRepository;
 
 class UserController extends Controller
@@ -78,22 +79,42 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Modules\User\Http\Requests\UserRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
+        $user = $request->user();
+        $inputs = $request->all();
+        $store = $this->users
+            ->store($user, $inputs);
+        $redirectTo = $store->success ?
+            "/users/{$store->data['userCreated']->id}" :
+            '/users/create';
+
+        return redirect($redirectTo)
+            ->with('snackbar', $store->message);
     }
 
     /**
      * Show the specified resource.
      *
-     * @param   string  $user
+     * @param   \Illuminate\Http\Request  $request
+     * @param   string  $id
      * @return  \Illuminate\Http\Response
      */
-    public function show()
+    public function show(Request $request, $id)
     {
-        return view('user::pages.users.show');
+        $user = $request->user();
+        $userToShow = User::findOrFail($id);
+
+        if ($user->cant('view', $userToShow)) {
+            abort(403);
+        }
+
+        return view('user::pages.users.show', [
+            'userToShow' => $userToShow,
+        ]);
     }
 
     /**

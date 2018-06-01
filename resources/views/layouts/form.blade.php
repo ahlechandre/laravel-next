@@ -58,6 +58,14 @@
         'actionText' => 'OK',
       ]) @endcomponent
     @endif
+
+    {{-- Verifica se existem erros de validação --}}
+    @if ($errors->any()) 
+      @component('material.snackbar', [
+        'message' => 'Falha ao validar os dados',
+        'actionText' => 'OK',
+      ]) @endcomponent
+    @endif
     
     {{-- MDC --}}
     <script src="{{ asset('js/material-components-web.js') }}"></script>

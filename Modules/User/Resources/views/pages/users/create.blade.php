@@ -34,6 +34,7 @@
                     [
                         'material' => 'textfield-box',
                         'when' => ['default' => 12],
+                        'validation' => $errors->get('name')[0] ?? null,
                         'props' => [
                             'label' => 'Nome',
                             'icon' => 'person_identity',
@@ -42,19 +43,20 @@
                                 'type' => 'text',
                                 'name' => 'name',
                                 'required' => '',
+                                'value' => old('name'),
                             ],
-                            'modifiers' => ['mdc-text-field--with-leading-icon']
+                            'modifiers' => ['mdc-text-field--with-leading-icon'],
                         ]
                     ],
                     [
                         'material' => 'select',
                         'when' => ['default' => 12],
+                        'validation' => $errors->get('role_id')[0] ?? null,
                         'props' => [
                             'label' => 'Papel',
-                            'icon' => 'add',
                             'attrs' => [
                                 'id' => 'textfield-user-role',
-                                'name' => 'role',
+                                'name' => 'role_id',
                                 'required' => '',
                             ],
                             'options' => $roles->map(function ($role) {
@@ -62,6 +64,7 @@
                                     'text' => $role->name,
                                     'attrs' => [
                                         'value' => $role->id,
+                                        'selected' => old('role_id') == $role->id
                                     ],
                                 ];
                             })->prepend([
@@ -77,6 +80,7 @@
                     [
                         'material' => 'textfield-box',
                         'when' => ['default' => 12],
+                        'validation' => $errors->get('email')[0] ?? null,
                         'props' => [
                             'label' => 'E-mail',
                             'icon' => 'email',
@@ -85,6 +89,7 @@
                                 'type' => 'email',
                                 'name' => 'email',
                                 'required' => '',
+                                'value' => old('email')
                             ],
                             'modifiers' => [
                                 'mdc-text-field--with-leading-icon',
@@ -94,6 +99,7 @@
                     [
                         'material' => 'textfield-box',
                         'when' => ['default' => 12],
+                        'validation' => $errors->get('password')[0] ?? null,
                         'props' => [
                             'label' => 'Senha',
                             'icon' => 'vpn_key',

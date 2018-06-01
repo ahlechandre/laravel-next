@@ -2,11 +2,12 @@
 
 /**
  * Define os atributos de elementos HTML.
- * 
+ *
  * @param array $attrs
  * @return string
  */
-function setAttributes($attrs) {
+function setAttributes($attrs)
+{
     $htmlAttrs = '';
     $index = 0;
     $scaping = function ($index) {
@@ -23,11 +24,12 @@ function setAttributes($attrs) {
 
 /**
  * Define as classes adicionais de um componente HTML.
- * 
+ *
  * @param string $classes
  * @return string
  */
-function setClasses($classes) {
+function setClasses($classes)
+{
 
     if (!$classes) {
         return '';
@@ -42,7 +44,8 @@ function setClasses($classes) {
  * @param array $modifiers
  * @return string
  */
-function setModifiers($modifiers) {
+function setModifiers($modifiers)
+{
 
     if (!$modifiers) {
         return '';
@@ -59,21 +62,23 @@ function setModifiers($modifiers) {
 /**
  * Define as classes de células responsivas do componente.
  *
- * @param null|string $cells
+ * @param  null|string  $cells
  * @return string
  */
-function setMaterialCells($cells) {
-
-    if (!$cells) return '';
+function setMaterialCells($cells)
+{
+    if (!$cells) {
+        return '';
+    }
   
     $prefix = 'mdc-layout-grid__cell--span-';
     $classes = isset($cells['default']) ?
       " {$prefix}{$cells['default']}" : '';
-    
+
     unset($cells['default']);
   
     foreach ($cells as $device => $cols) {
-      $classes .= " {$prefix}{$cols}-{$device}";
+        $classes .= " {$prefix}{$cols}-{$device}";
     }
   
     return $classes;
@@ -82,12 +87,14 @@ function setMaterialCells($cells) {
 /**
  * Define as classes de células responsivas do componente.
  *
- * @param null|string $when
+ * @param  null|string  $when
  * @return string
  */
-function setMaterialCellsWhen($when) {
-
-    if (!$when) return '';
+function setMaterialCellsWhen($when)
+{
+    if (!$when) {
+        return '';
+    }
   
     $prefix = 'mdc-layout-grid__cell--span-';
     $classes = isset($when['default']) ?
@@ -96,7 +103,7 @@ function setMaterialCellsWhen($when) {
     unset($when['default']);
   
     foreach ($when as $device => $cols) {
-      $classes .= " {$prefix}{$cols}-{$device}";
+        $classes .= " {$prefix}{$cols}-{$device}";
     }
   
     return $classes;
@@ -105,11 +112,12 @@ function setMaterialCellsWhen($when) {
 /**
  * Verifica se a página atual corresponde a alguma dos
  * pathanames indicados.
- * 
- * @param string|array $paths
+ *
+ * @param  string|array  $paths
  * @return bool
  */
-function isActivePage($paths) {
+function isActivePage($paths)
+{
     $requested = request()->path();
 
     if (is_string($paths)) {
@@ -117,7 +125,6 @@ function isActivePage($paths) {
     }
 
     foreach ($paths as $path) {
-
         if (substr($requested, 0, strlen($path)) === $path) {
             return true;
         }
@@ -128,11 +135,12 @@ function isActivePage($paths) {
 
 /**
  * Retorna o nome do ícone, dado o seu indexador.
- * 
- * @param string $name
+ *
+ * @param  string  $name
  * @return null|string
  */
-function material_icon($name) {
+function material_icon($name)
+{
     return [
         'users' => 'group',
         'user' => 'person',
@@ -154,27 +162,51 @@ function material_icon($name) {
 }
 
 /**
- * 
- * @param array $list
- * @return array
- */
-function map_values_to_int($list) {
-    $map = [];
-
-    foreach ($list as $key => $value) {
-        $map[] = (int) $value;
-    }
-    
-    return $map;
-}
-
-/**
- * 
+ *
  * @param array $inputs
  * @return boolean
  */
-function sanitize_is_active($inputs) {
+function sanitize_is_active($inputs)
+{
     return (
         isset($inputs['is_active']) && $inputs['is_active']
     ) ? true : false;
+}
+
+/**
+ * Monta uma mensagem de resposta personalizada para API.
+ *
+ * @param  int  $status
+ * @param  null|string  $message
+ * @param  null|array  $data
+ * @return stdClass
+ */
+function apiResponse($status, $message = null, $data = null)
+{
+    switch ($status) {
+        case 200: {
+            return (object) [
+                'success' => true,
+                'status' => $status,
+                'message' => $message ?? 'Requisição processada com sucesso',
+                'data' => $data ?? [],
+            ];
+        }
+        case 403: {
+            return (object) [
+                'success' => false,
+                'status' => $status,
+                'message' => $message ?? 'Permissão negada',
+                'data' => $data ?? [],
+            ];
+        }
+        default: {
+            return (object) [
+                'success' => false,
+                'status' => $status,
+                'message' => $message ?? 'Ops, algo deu errado',
+                'data' => $data ?? [],
+            ];
+        } 
+    }
 }

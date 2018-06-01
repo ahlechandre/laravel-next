@@ -10,7 +10,21 @@
       @component('material.cell', [
         'when' => $input['when']
       ])
-        @component("material.{$input['material']}", $input['props']) @endcomponent
+        @component(
+          "material.{$input['material']}",
+          (
+            isset($input['validation']) && $input['validation'] ? array_merge(
+              $input['props'],
+              [
+                'helperText' => [
+                    'isValidation' => true,
+                    'isPersistent' => true,
+                    'message' => $input['validation'],
+                ],
+              ]
+            ) : $input['props']
+          )
+        ) @endcomponent
       @endcomponent
     @endforeach
 
