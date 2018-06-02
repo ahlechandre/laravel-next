@@ -1,8 +1,12 @@
-<div class="card mdc-card">
+<div class="card mdc-card{{ setModifiers($modifiers ?? null) }}">
   {{-- Primary --}}
   <div class="card__primary">
-    <h2 class="card__title mdc-typography--headline6">{{ $title }}</h2>
-    <h3 class="card__subtitle mdc-typography--subtitle2">{{ $subtitle }}</h3>
+    @if ($title ?? false)
+      <h2 class="card__title mdc-typography--headline6">{{ $title }}</h2>
+    @endif
+    @if ($subtitle ?? false)
+      <h3 class="card__subtitle mdc-typography--subtitle2">{{ $subtitle }}</h3>    
+    @endif
   </div>
 
   {{-- Content --}}

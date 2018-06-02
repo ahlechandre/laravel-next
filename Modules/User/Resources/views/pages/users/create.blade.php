@@ -1,27 +1,53 @@
-@extends('layouts.form', [
-    'topAppBarTitle' => 'App / Novo usuário',
-    'topAppBarMenu' => [
-        'icon' => 'arrow_back',
-        'attrs' => [
-            'href' => url('/users'), 
-        ]
-    ]
-])
+@extends('layouts.master')
 @section('title', 'Novo usuário')
 
 @section('main')
+    @component('components.top-app-bar-surface')
+        @component('material.layout-grid-with-inner')
+            @component('material.cell', [
+                'when' => ['default' => 12]
+            ])
+                @component('material.breadcrumbs', [
+                    'items' => [
+                        [
+                            'text' => 'Dashboard',
+                            'url' => url('/dashboard'),
+                        ],
+                        [
+                            'text' => 'Usuários',
+                            'url' => url('/users'),
+                        ],
+                        [
+                            'text' => 'Novo usuário',
+                        ],
+                    ]
+                ]) @endcomponent
+            @endcomponent
+            
+        @endcomponent
 
-  @component('material.layout-grid-with-inner')
+    @endcomponent
+
+
+  @component('material.layout-grid-with-inner', [
+      'modifiers' => ['layout-grid--dense']
+  ])
     
     @component('material.cell', [
       'when' => ['default' => 12]
     ])
         @component('components.form-with-card', [
-            'title' => 'Novo usuário',
-            'subtitle' => 'Adicione um novo usuário ao sistema',
+            'title' => 'Adicione um novo usuário',
+            'subtitle' => 'Este usuário poderá manter os recursos de acordo com o seu papel.',
             'form' => [
                 'action' => url('/users'),
                 'method' => 'post',
+                'cancel' => [
+                    'text' => 'Cancelar',
+                    'attrs' => [
+                        'href' => url('/users'),
+                    ],
+                ],
                 'submit' => [
                     'text' => 'Salvar',
                     'icon' => 'check',
@@ -32,12 +58,14 @@
                 ],
                 'inputs' => [
                     [
-                        'material' => 'textfield-box',
-                        'when' => ['default' => 12],
+                        'material' => 'textfield',
+                        'when' => [
+                            'desktop' => 6,
+                            'tablet' => 8,
+                        ],
                         'validation' => $errors->get('name')[0] ?? null,
                         'props' => [
                             'label' => 'Nome',
-                            'icon' => 'person_identity',
                             'attrs' => [
                                 'id' => 'textfield-user-name',
                                 'type' => 'text',
@@ -45,12 +73,14 @@
                                 'required' => '',
                                 'value' => old('name'),
                             ],
-                            'modifiers' => ['mdc-text-field--with-leading-icon'],
                         ]
                     ],
                     [
                         'material' => 'select',
-                        'when' => ['default' => 12],
+                        'when' => [
+                            'desktop' => 6,
+                            'tablet' => 8,
+                        ],
                         'validation' => $errors->get('role_id')[0] ?? null,
                         'props' => [
                             'label' => 'Papel',
@@ -68,7 +98,7 @@
                                     ],
                                 ];
                             })->prepend([
-                                'text' => 'Selecione o papel do usuário',
+                                'text' => '',
                                 'attrs' => [
                                     'value' => '',
                                     'disabled' => '',
@@ -78,12 +108,14 @@
                         ]
                     ],                
                     [
-                        'material' => 'textfield-box',
-                        'when' => ['default' => 12],
+                        'material' => 'textfield',
+                        'when' => [
+                            'desktop' => 6,
+                            'tablet' => 8,
+                        ],
                         'validation' => $errors->get('email')[0] ?? null,
                         'props' => [
                             'label' => 'E-mail',
-                            'icon' => 'email',
                             'attrs' => [
                                 'id' => 'textfield-user-email',
                                 'type' => 'email',
@@ -91,26 +123,22 @@
                                 'required' => '',
                                 'value' => old('email')
                             ],
-                            'modifiers' => [
-                                'mdc-text-field--with-leading-icon',
-                            ]        
                         ]
                     ],
                     [
-                        'material' => 'textfield-box',
-                        'when' => ['default' => 12],
+                        'material' => 'textfield',
+                        'when' => [
+                            'desktop' => 6,
+                            'tablet' => 8,
+                        ],
                         'validation' => $errors->get('password')[0] ?? null,
                         'props' => [
                             'label' => 'Senha',
-                            'icon' => 'vpn_key',
                             'attrs' => [
                                 'id' => 'textfield-user-password',
                                 'type' => 'password',
                                 'name' => 'password',
                                 'required' => '',
-                            ],
-                            'modifiers' => [
-                                'mdc-text-field--with-leading-icon',
                             ],
                         ]
                     ]                           

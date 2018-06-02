@@ -4,6 +4,8 @@ import { TextFieldHelperTextContainer, TextFieldHelperText } from './components/
 import { ButtonContainer, Button } from './components/button'
 import { TopAppBarContainer, TopAppBar } from './components/top-app-bar'
 import { SnackbarContainer, Snackbar } from './components/snackbar'
+import { RippleContainer, Ripple } from './components/ripple'
+import { SelectContainer, Select } from './components/select'
 import { MDCAutocomplete } from './components/autocomplete'
 
 /**
@@ -18,8 +20,10 @@ const autoInit = () => {
     TextFieldContainer,
     TextFieldHelperTextContainer,
     ButtonContainer,
-    TopAppBarContainer,  
-    SnackbarContainer
+    TopAppBarContainer,
+    SnackbarContainer,
+    RippleContainer,
+    SelectContainer
   ]
   containers.map(container => {
     let i = 0
@@ -34,17 +38,6 @@ const autoInit = () => {
 const app = () => {
   // Inicializa os componentes.
   autoInit()
-
-  // Disponibiliza todos os componentes globalmente. 
-  window.mdcn = {
-    MDCAutocomplete,
-    DrawerTemporary,
-    TextField,
-    TextFieldHelperText,
-    Button,
-    TopAppBar,
-    Snackbar
-  }
 }
 
 window.addEventListener('load', app);

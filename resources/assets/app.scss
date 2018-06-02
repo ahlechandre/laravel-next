@@ -44,5 +44,11 @@
 @import './components/autocomplete/autocomplete';
 @import './components/linear-progress/linear-progress';
 @import './components/layout-grid/layout-grid';
+@import './components/list/list';
+@import './components/breadcrumbs/breadcrumbs';
+@import './components/button/button';
+@import './components/top-app-bar/top-app-bar';
+@import './components/paginable/paginable';
 // Pages
-@import './pages/login/login'
+@import './pages/login/login';
+@import './pages/pages'

@@ -5,13 +5,21 @@
   @component('components.page', [
     'modifiers' => ['page-login']
   ])
-    @component('material.layout-grid-with-inner')
+    @component('components.top-app-bar-surface', [
+      'modifiers' => [
+        'top-app-bar-surface--expanded',
+        'top-app-bar-surface--min-height',
+      ]
+    ]) @endcomponent
+    
+    @component('material.layout-grid-with-inner', [
+      'modifiers' => ['layout-grid--with-form-small']
+    ])
 
       @component('material.cell', [
         'when' => [
           'default' => 12
         ],
-        'modifiers' => ['mdc-layout-grid__cell--align-middle']
       ])        
         @component('material.card', [
           'title' => 'Log In',
@@ -22,7 +30,6 @@
               'props' => [
                 'text' => 'Esqueceu sua senha?',
                 'attrs' => [
-                  'disabled' => true,
                 ],
               ],
             ],
@@ -42,6 +49,7 @@
                   'attrs' => [
                     'type' => 'email',
                     'name' => 'email',
+                    'autocomplete' => 'off',
                     'required' => '',
                     'id' => 'textfield-email',
                   ],
@@ -62,6 +70,7 @@
                   'attrs' => [
                     'type' => 'password',
                     'required' => '',
+                    'autocomplete' => 'off',
                     'name' => 'password',
                     'id' => 'textfield-password',
                   ],
@@ -84,7 +93,7 @@
             ],
             'submit' => [
               'text' => 'Entrar',
-              'modifiers' => ['mdc-button--raised'],
+              'modifiers' => ['mdc-button--unelevated'],
               'attrs' => [
                 'type' => 'submit'
               ],

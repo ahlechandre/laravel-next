@@ -1,0 +1,31 @@
+.mdc-top-app-bar {
+    z-index: 1;
+}
+
+.top-app-bar-surface {
+    background-color: $mdc-theme-primary;
+    position: relative;
+}
+
+.top-app-bar-surface--min-height {
+    min-height: 100px;
+}
+
+.top-app-bar-surface--expanded {
+    padding-bottom: 120px;
+
+    & + .layout-grid--with-form,
+    & + .layout-grid--with-form-small {
+        margin-top: -140px;
+        position: relative;
+    }
+}
+
+@media (max-width: 599px) {
+    .mdc-top-app-bar--fixed-adjust {
+        margin-top: 0
+    }
+    .mdc-top-app-bar--fixed-adjust {
+        padding-top: 56px;
+    }
+}

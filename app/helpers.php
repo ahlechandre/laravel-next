@@ -15,8 +15,10 @@ function setAttributes($attrs)
     };
 
     foreach ($attrs as $attr => $value) {
-        $htmlAttrs .= $scaping($index) . $attr . '="' . $value . '"';
-        $index++;
+        if ($value !== false) {
+            $htmlAttrs .= $scaping($index) . $attr . '="' . $value . '"';
+            $index++;
+        }
     }
     
     echo $htmlAttrs;
@@ -40,7 +42,7 @@ function setClasses($classes)
 
 /**
  * Define as classes modificadoras de um componente HTML.
- * 
+ *
  * @param array $modifiers
  * @return string
  */

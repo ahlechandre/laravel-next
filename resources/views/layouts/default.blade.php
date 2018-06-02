@@ -12,6 +12,14 @@
   <body class="mdc-typography">
     @yield('main')
 
+    {{-- Snackbars --}}
+    @if (session('snackbar')) 
+      @component('material.snackbar', [
+        'message' => session('snackbar'),
+        'actionText' => 'OK',
+      ]) @endcomponent
+    @endif
+  
     <script src="{{ asset('js/material-components-web.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
     @yield('scripts')

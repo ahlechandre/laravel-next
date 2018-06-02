@@ -19,9 +19,14 @@
   }
 }
 
+.card--with-list {
+  & .card__body {
+    padding: 0;
+  }
+}
+
 .card--with-form {
   padding: 18px;
-  border-top: 10px solid $mdc-theme-primary-light;
   
   & .card__title {
     margin-bottom: 12px!important;

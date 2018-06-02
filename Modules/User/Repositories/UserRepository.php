@@ -30,7 +30,7 @@ class UserRepository
         };
         $query = $filter ?
             $search($filter) :
-            User::query();
+            User::orderBy('created_at', 'desc');
         $users = $perPage ?
             $query->simplePaginate($perPage) :
             $query->get();

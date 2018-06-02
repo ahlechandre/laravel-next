@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
-    return redirect('/login');
+    return redirect('/login')
+        ->with('snackbar', 'Faça login para continuar');
 });

@@ -69,7 +69,8 @@ class UserController extends Controller
         if ($user->cant('create', User::class)) {
             abort(403);
         }
-        $roles = Role::all();
+        $roles = Role::ofUser($user)
+            ->get();
 
         return view('user::pages.users.create', [
             'roles' => $roles
@@ -120,12 +121,25 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  string  $user
+     * @param  \Illuminate\Http\Request  $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit()
+    public function edit(Request $request, $id)
     {
-        return view('user::pages.users.edit');
+        $user = $request->user();
+        $userToEdit = User::findOrFail($id);
+
+        if ($user->cant('update', $userToEdit)) {
+            abort(403);
+        }
+        $roles = Role::ofUser($user)
+            ->get();
+
+        return view('user::pages.users.edit', [
+            'userToEdit' => $userToEdit,
+            'roles' => $roles,
+        ]);
     }
 
     /**

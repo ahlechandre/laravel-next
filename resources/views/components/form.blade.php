@@ -1,8 +1,10 @@
 <form action="{{ $action }}" method="{{ $method === 'get' ? 'get' : 'post' }}">
-  {{-- CSRF Protection --}}
-  @csrf
-  {{-- Emula método HTTP --}}
-  @method($method)
+  @if ($method !== 'get')
+    {{-- CSRF Protection --}}
+    @csrf  
+    {{-- Emula método HTTP --}}
+    @method($method)
+  @endif
 
   @component('material.layout-grid-inner')
     {{-- Inputs --}}
@@ -45,10 +47,11 @@
     @if ($submit ?? false)
       @component('material.cell', [
         'when' => [
-          'desktop' => 6,
+          'desktop' => isset($cancel) ? 6 : 12,
           'tablet' => 4,
           'phone' => 2,
-        ]
+        ],
+        'modifiers' => ['mdc-layout-grid--align-right'],
       ])
         @component('material.button', $submit) @endcomponent
       @endcomponent    

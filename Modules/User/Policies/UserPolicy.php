@@ -43,4 +43,16 @@ class UserPolicy
     {
         return true;
     }
+
+    /**
+     * Indica se o usuário pode editar o outro usuário.
+     *
+     * @param  \Modules\User\Entities\User  $user
+     * @param  \Modules\User\Entities\User  $userToEdit
+     * @return bool
+     */
+    public function update(User $user, User $userToEdit)
+    {
+        return true;
+    }
 }
