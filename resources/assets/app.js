@@ -23,7 +23,7 @@ const autoInit = () => {
     TopAppBarContainer,
     SnackbarContainer,
     RippleContainer,
-    SelectContainer
+    SelectContainer,
   ]
   containers.map(container => {
     let i = 0

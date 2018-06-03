@@ -2,34 +2,20 @@
 @section('title', $userToShow->name)
 
 @section('main')
-    {{-- Top App Bar Surface --}}
-    @component('components.top-app-bar-surface')
-        @component('material.layout-grid-with-inner')
-            @component('material.cell', [
-                'when' => ['default' => 12]
-            ])
-                @component('material.breadcrumbs', [
-                    'items' => [
-                        [
-                            'text' => 'Dashboard',
-                            'url' => url('/dashboard'),
-                        ],
-                        [
-                            'text' => 'Usuários',
-                            'url' => url('/users'),
-                        ],
-                        [
-                            'text' => $userToShow->name,
-                        ],
-                    ]
-                ]) @endcomponent
-            @endcomponent
-        @endcomponent
-
-    @endcomponent
 
     {{-- Conteúdo --}}
-    @component('material.layout-grid-with-inner')
+    @component('material.layout-grid-with-inner', [
+        'modifiers' => ['layout-grid--dense']
+    ])
+        {{-- Títulos --}}
+        @component('material.cell', [
+            'when' => ['default' => 12]
+        ])
+            @component('components.typography', [
+                'title' => $userToShow->name,
+                'subtitle' => 'Usuário',
+            ]) @endcomponent
+        @endcomponent
 
         @component('material.cell', [
             'when' => ['default' => 12]

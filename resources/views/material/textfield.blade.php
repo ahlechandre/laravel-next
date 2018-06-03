@@ -2,8 +2,10 @@
   @if ($icon ?? false)
   <i class="material-icons mdc-text-field__icon" role="button">{{ $icon }}</i>  
   @endif
-  <input {{ setAttributes($attrs ?? null) }} class="mdc-text-field__input">
-  <label class="mdc-floating-label" for="{{ $attrs['id'] ?? null }}">{{ $label }}</label>
+  <input {{ setAttributes($attrs ?? null) }} class="mdc-text-field__input text-field__input">
+  @if ($label ?? false)
+  <label class="mdc-floating-label" for="{{ $attrs['id'] ?? null }}">{{ $label }}</label>  
+  @endif
   <div class="mdc-line-ripple"></div>
 </div>
 

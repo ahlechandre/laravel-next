@@ -2,47 +2,14 @@
 @section('title', "{$userToEdit->name} / Editar")
 
 @section('main')
-    {{-- Top App Bar Surface --}}
-    @component('components.top-app-bar-surface')
-        @component('material.layout-grid-with-inner')
-            @component('material.cell', [
-                'when' => ['default' => 12]
-            ])
-                @component('material.breadcrumbs', [
-                    'items' => [
-                        [
-                            'text' => 'Dashboard',
-                            'url' => url('/dashboard'),
-                        ],
-                        [
-                            'text' => 'Usuários',
-                            'url' => url('/users'),
-                        ],
-                        [
-                            'text' => $userToEdit->name,
-                            'url' => url("/users/{$userToEdit->id}/edit"),
-                        ],
-                        [
-                            'text' => 'Editar'
-                        ]
-                    ]
-                ]) @endcomponent
-            @endcomponent
-            
-        @endcomponent
-
-    @endcomponent
-
-    {{-- Formulário --}}
     @component('material.layout-grid-with-inner', [
         'modifiers' => ['layout-grid--dense']
-    ])
-        
+    ])        
         @component('material.cell', [
         'when' => ['default' => 12]
         ])
             @component('components.form-with-card', [
-                'title' => 'Edite o usuário',
+                'title' => $userToEdit->name,
                 'subtitle' => 'Atualize as informações pessoais e de papel do usuário.',
                 'form' => [
                     'action' => url("/users/{$userToEdit->id}"),
@@ -50,7 +17,7 @@
                     'cancel' => [
                         'text' => 'Cancelar',
                         'attrs' => [
-                            'href' => url('/users'),
+                            'href' => url("/users/{$userToEdit->id}"),
                         ],
                     ],
                     'submit' => [

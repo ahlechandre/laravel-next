@@ -4,11 +4,7 @@
             'when' => [
                 'default' => 12
             ]
-        ])
-            @if ($title)
-                <h5 class="paginable__title mdc-typography--subtitle1">{{ $title }}</h5>
-            @endif
-            
+        ])            
             @if ($collection->isEmpty())
                 <h3 class="mdc-typography--headline5">Ops, nenhum resultado encontrado</h3>
             @else

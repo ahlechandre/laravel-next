@@ -2,33 +2,6 @@
 @section('title', 'Novo usuário')
 
 @section('main')
-    @component('components.top-app-bar-surface')
-        @component('material.layout-grid-with-inner')
-            @component('material.cell', [
-                'when' => ['default' => 12]
-            ])
-                @component('material.breadcrumbs', [
-                    'items' => [
-                        [
-                            'text' => 'Dashboard',
-                            'url' => url('/dashboard'),
-                        ],
-                        [
-                            'text' => 'Usuários',
-                            'url' => url('/users'),
-                        ],
-                        [
-                            'text' => 'Novo usuário',
-                        ],
-                    ]
-                ]) @endcomponent
-            @endcomponent
-            
-        @endcomponent
-
-    @endcomponent
-
-
   @component('material.layout-grid-with-inner', [
       'modifiers' => ['layout-grid--dense']
   ])
@@ -37,8 +10,8 @@
       'when' => ['default' => 12]
     ])
         @component('components.form-with-card', [
-            'title' => 'Adicione um novo usuário',
-            'subtitle' => 'Este usuário poderá manter os recursos de acordo com o seu papel.',
+            'title' => 'Novo usuário',
+            'subtitle' => 'Adicione um novo usuário que poderá manter os recursos de acordo com o seu papel.',
             'form' => [
                 'action' => url('/users'),
                 'method' => 'post',

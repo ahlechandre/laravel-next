@@ -2,40 +2,27 @@
 @section('title', 'Usuários')
 
 @section('main')
-    {{-- Top App Bar Surface --}}
-    @component('components.top-app-bar-surface')
-        @component('material.layout-grid-with-inner')
-            @component('material.cell', [
-                'when' => ['default' => 12]
-            ])
-                @component('material.breadcrumbs', [
-                    'items' => [
-                        [
-                        'text' => 'Dashboard',
-                        'url' => url('/dashboard'),
-                        ],
-                        [
-                            'text' => 'Usuários',
-                        ],
-                    ]
-                ]) @endcomponent
-            @endcomponent
-            
-        @endcomponent
-    
-    @endcomponent
 
     {{-- Conteúdo --}}
     @component('material.layout-grid-with-inner', [
         'modifiers' => ['layout-grid--dense']
     ])
+        {{-- Títulos --}}
+        @component('material.cell', [
+            'when' => ['default' => 12]
+        ])
+            @component('components.typography', [
+                'title' => 'Usuários',
+                'subtitle' => 'Lista de usuários mais recentes no sistema.',
+            ]) @endcomponent
+        @endcomponent
 
+        {{-- Lista de recursos --}}
         @component('material.cell', [
             'when' => ['default' => 12]
         ])
             @component('components.paginable', [
             'collection' => $users,
-            'title' => 'Usuários recentes',
             'items' => $users->map(function ($userToShow) {
                 return [
                     'icon' => 'person',

@@ -89,11 +89,8 @@ class UserController extends Controller
         $inputs = $request->all();
         $store = $this->users
             ->store($user, $inputs);
-        $redirectTo = $store->success ?
-            "/users/{$store->data['userCreated']->id}" :
-            '/users/create';
 
-        return redirect($redirectTo)
+        return redirect('/users')
             ->with('snackbar', $store->message);
     }
 
@@ -145,11 +142,18 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  Illuminate\Http\Request  $request
-     * @param  string  $user
+     * @param  \Modules\User\Http\Requests\UserRequest  $request
+     * @param  string  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UserRequest $request, $id)
     {
+        $user = $request->user();
+        $inputs = $request->all();
+        $update = $this->users
+            ->update($user, (int) $id, $inputs);
+
+        return redirect("/users/{$id}/edit")
+            ->with('snackbar', $update->message);
     }
 }

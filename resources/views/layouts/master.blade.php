@@ -27,7 +27,7 @@
     </div>
 
     {{-- Barra de navegação --}}
-    @component('material.top-app-bar', [
+    @component('material.top-app-bar-with-search', [
       'modifiers' => ['mdc-top-app-bar--fixed'],
       'title' => 'App',
       'actions' => $topAppBarActions ?? [],
