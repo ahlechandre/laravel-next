@@ -30,6 +30,8 @@
     @component('material.top-app-bar-with-search', [
       'modifiers' => ['mdc-top-app-bar--fixed'],
       'title' => 'App',
+      'breadcrumbs' => $breadcrumbs ?? [],
+      'tabs' => $topAppBarTabs ?? null,
       'actions' => $topAppBarActions ?? [],
       'menu' => [
         'icon' => 'menu',
@@ -39,6 +41,11 @@
         ]
       ]
     ]) @endcomponent
+
+    {{-- Conteúdo da página --}}
+    <main class="mdc-top-app-bar--fixed-adjust">
+      @yield('main')
+    </main>
 
     {{-- Drawer --}}
     @component('material.drawer-temporary', [
@@ -72,10 +79,6 @@
       ], 
     ]) @endcomponent
 
-    {{-- Conteúdo da página --}}
-    <main class="mdc-top-app-bar--fixed-adjust">
-      @yield('main')
-    </main>
 
     {{-- Snackbars --}}
     @if (session('snackbar')) 

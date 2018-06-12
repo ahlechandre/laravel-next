@@ -1,12 +1,13 @@
-import { DrawerContainer, DrawerTemporary } from './components/drawer'
-import { TextFieldContainer, TextField } from './components/textfield'
-import { TextFieldHelperTextContainer, TextFieldHelperText } from './components/textfield-helper-text'
-import { ButtonContainer, Button } from './components/button'
-import { TopAppBarContainer, TopAppBar } from './components/top-app-bar'
-import { SnackbarContainer, Snackbar } from './components/snackbar'
-import { RippleContainer, Ripple } from './components/ripple'
-import { SelectContainer, Select } from './components/select'
-import { MDCAutocomplete } from './components/autocomplete'
+import { DrawerContainer } from './components/drawer'
+import { TextFieldContainer } from './components/textfield'
+import { TextFieldHelperTextContainer } from './components/textfield-helper-text'
+import { ButtonContainer} from './components/button'
+import { TopAppBarContainer } from './components/top-app-bar'
+import { SnackbarContainer } from './components/snackbar'
+import { RippleContainer } from './components/ripple'
+import { SelectContainer } from './components/select'
+import { ChartContainer } from './components/chart'
+import { TabBarScrollerContainer } from './components/tab-bar-scroller'
 
 /**
  * Inicializa automaticamente todos os componentes indicados.
@@ -24,6 +25,8 @@ const autoInit = () => {
     SnackbarContainer,
     RippleContainer,
     SelectContainer,
+    ChartContainer,
+    TabBarScrollerContainer
   ]
   containers.map(container => {
     let i = 0
